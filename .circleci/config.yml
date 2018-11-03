@@ -35,7 +35,7 @@ references:
   config_android: &config_android
     docker:
       - image: circleci/android:api-28-alpha
-    working_directory: ~/workspace
+    working_directory: *workspace
     environment:
       JVM_OPTS: "-Xmx1536m"
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
@@ -44,7 +44,7 @@ references:
   config_gcloud: &config_gcloud
     docker:
       - image: google/cloud-sdk:latest
-    working_directory: ~/workspace
+    working_directory: *workspace
     environment:
       TERM: dumb
 
