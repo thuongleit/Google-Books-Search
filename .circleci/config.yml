@@ -1,9 +1,37 @@
 version: 2
 
 references:
+  # Cache
   cache_key: &cache_key
     key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
+  restore_cache: &restore_cache
+    restore_cache:
+      <<: *cache_key
 
+  save_cache: &save_cache
+    save_cache:
+      <<: *cache_key
+      paths:
+        - ~/.gradle
+        - ~/.m2
+
+  # Workspace
+  workspace: &workspace
+    ~/workspace
+  attach_workspace: &attach_workspace
+    attach_workspace:
+      at: *workspace
+
+  persist_workspace: &persist_workspace
+    persist_to_workspace:
+      root: *workspace
+      paths:
+        - app/build/outputs/androidTest-results
+        - app/build/outputs/apk
+        - app/build/outputs/code-coverage
+        - app/build/test-results
+
+  # docker images
   config_android: &config_android
     docker:
       - image: circleci/android:api-28-alpha
@@ -25,15 +53,11 @@ jobs:
     <<: *config_android
     steps:
       - checkout
-      - restore_cache:
-          <<: *cache_key
+      - *restore_cache
       - run:
           name: Download Dependencies
           command: ./gradlew dependencies
-      - save_cache:
-          <<: *cache_key
-          paths:
-            - ~/.gradle
+      - *save_cache
       - run:
           name: Run Tests & Lint
           command: ./gradlew check
@@ -47,25 +71,21 @@ jobs:
     <<: *config_android
     steps:
       - checkout
-      - restore_cache:
-          <<: *cache_key
-#      - run:
-#          name: Download Dependencies
-#          command: ./gradlew dependencies
-#      - save_cache:
-#          <<: *cache_key
-#          paths:
-#            - ~/.gradle
+      - *restore_cache
+      - run:
+          name: Download Dependencies
+          command: ./gradlew dependencies
+      - *save_cache
       - run:
           name: Assemble apk and test apk
           command: ./gradlew assemble assembleAndroidTest
+      - *persist_workspace
 
   test_instrumented:
     <<: *config_gcloud
     steps:
       - checkout
-      - attach_workspace:
-          at: ~/workspace
+      - *attach_workspace
       - run:
           name: Setup Google Cloud & Authenticate
           command: .circleci/scripts/firebase_test_lab_setup.sh
