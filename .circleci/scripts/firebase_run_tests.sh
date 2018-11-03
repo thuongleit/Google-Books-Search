@@ -38,8 +38,8 @@ test_apk() {
     gsutil -m cp -r -U "gs://${PROJECT_ID}/$RESULTS_DIR/*" "$TEST_DIR/$RESULTS_DIR"
 }
 
-APK_PATH="$(find . -path "*.apk" ! -path "*unaligned.apk" ! -path "*Test*.apk" -print -quit)"
-TEST_APK_PATH="$(find "." "-path" "*Test*.apk" -print -quit)"
+APK_PATH=app/build/outputs/apk/debug/app-debug.apk
+TEST_APK_PATH=app/build/outputs/apk/androidTest/debug/app-debug-androidTest.apk
 
 test_apk \
     "app" \
