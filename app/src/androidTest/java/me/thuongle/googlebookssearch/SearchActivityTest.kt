@@ -5,6 +5,8 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.NoActivityResumedException
+import android.support.test.espresso.action.ViewActions.clearText
+import android.support.test.espresso.action.ViewActions.typeText
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.filters.LargeTest
@@ -54,6 +56,31 @@ class SearchActivityTest {
             setOrientationRight()
             testDefaultViewState()
         }
+    }
+
+    @Test
+    fun onQueryTextChanged_EnableDisableSearchButton() {
+        val edQuery = onView(withId(R.id.ed_query))
+        edQuery.perform(typeText("Hello"))
+        val btnSearch = onView(withId(R.id.btn_search))
+        btnSearch.check(
+            matches(
+                allOf(
+                    isDisplayed(),
+                    isClickable()
+                )
+            )
+        )
+
+        edQuery.perform(clearText())
+        btnSearch.check(
+            matches(
+                allOf(
+                    isDisplayed(),
+                    not(isClickable())
+                )
+            )
+        )
     }
 
     private fun testDefaultViewState() {
