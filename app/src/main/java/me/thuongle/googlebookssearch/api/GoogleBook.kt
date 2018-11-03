@@ -1,6 +1,5 @@
 package me.thuongle.googlebookssearch.api
 
-import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 data class GoogleBook(
@@ -13,19 +12,7 @@ data class GoogleBook(
     @SerializedName("selfLink")
     val selfLink: String,
     @SerializedName("volumeInfo")
-    val bookInfo: BookInfo,
-    @Expose
-    @SerializedName("userInfo")
-    val userInfo: UserInfo,
-    @Expose
-    @SerializedName("saleInfo")
-    val saleInfo: SaleInfo,
-    @Expose
-    @SerializedName("accessInfo")
-    val accessInfo: AccessInfo,
-    @Expose
-    @SerializedName("searchInfo")
-    val searchInfo: SearchInfo
+    val bookInfo: BookInfo
 ) {
 
     data class BookInfo(
@@ -69,14 +56,6 @@ data class GoogleBook(
         val canonicalVolumeLink: String
     )
 
-    data class UserInfo(val data: String)
-
-    data class SaleInfo(val data: String)
-
-    data class AccessInfo(val data: String)
-
-    data class SearchInfo(val data: String)
-
     data class IndustryIdentifierInfo(
         val type: String,
         val identifier: String
@@ -93,18 +72,16 @@ data class GoogleBook(
 
     data class ImageInfo(
         @SerializedName("smallThumbnail")
-        val smallThumbnail: String,
+        val smallThumbnail: String?,
         @SerializedName("thumbnail")
-        val thumbnail: String,
+        val thumbnail: String?,
         @SerializedName("small")
-        val small: String,
+        val small: String?,
         @SerializedName("medium")
-        val medium: String,
+        val medium: String?,
         @SerializedName("large")
-        val large: String,
+        val large: String?,
         @SerializedName("extraLarge")
-        val extraLarge: String
+        val extraLarge: String?
     )
-
-    data class PriceInfo(val data: String)
 }

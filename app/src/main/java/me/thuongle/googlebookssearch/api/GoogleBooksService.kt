@@ -9,10 +9,10 @@ import retrofit2.http.Query
 /**
  * REST API access points for Google Books API
  */
-interface GoogleBooksService : BooksService {
+interface GoogleBooksService {
 
     @GET("volumes")
-    override fun searchBooks(
+    fun searchBooks(
         @Query("q") query: String,
         @Query("startIndex") startIndex: Int
     ): Call<GoogleVolumeResponse>
