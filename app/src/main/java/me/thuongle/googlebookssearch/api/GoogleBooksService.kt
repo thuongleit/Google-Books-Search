@@ -1,0 +1,29 @@
+package me.thuongle.googlebookssearch.api
+
+import retrofit2.Call
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.http.GET
+import retrofit2.http.Query
+
+/**
+ * REST API access points for Google Books API
+ */
+interface GoogleBooksService : BooksService {
+
+    @GET("volumes")
+    override fun searchBooks(
+        @Query("q") query: String,
+        @Query("startIndex") startIndex: Int
+    ): Call<GoogleVolumeResponse>
+
+    companion object {
+        fun create(): GoogleBooksService? {
+            return Retrofit.Builder()
+                .baseUrl("https://www.googleapis.com/books/v1/")
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
+                .create(GoogleBooksService::class.java)
+        }
+    }
+}
