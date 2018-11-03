@@ -12,6 +12,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.test.uiautomator.UiDevice
 import android.view.inputmethod.EditorInfo
+import me.thuongle.googlebookssearch.ui.search.SearchActivity
 import me.thuongle.googlebookssearch.utils.hasItemCount
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
@@ -22,11 +23,11 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class MainActivityTest {
+class SearchActivityTest {
 
     @Rule
     @JvmField
-    var activityTestRule = ActivityTestRule(MainActivity::class.java)
+    var activityTestRule = ActivityTestRule(SearchActivity::class.java)
 
     @Test
     fun onPressDeviceBack_CloseApp() {
