@@ -4,14 +4,25 @@ references:
   cache_key: &cache_key
     key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
-jobs:
-  build:
+  config_android: &config_android
     docker:
       - image: circleci/android:api-28-alpha
+    working_directory: ~/workspace
     environment:
-      JVM_OPTS: "-Xmx1024m"
+      JVM_OPTS: "-Xmx1536m"
       GRADLE_OPTS: "-Dorg.gradle.daemon=false -Dorg.gradle.workers.max=2"
       TERM: dumb
+
+  config_gcloud: &config_gcloud
+    docker:
+      - image: google/cloud-sdk:latest
+    working_directory: ~/workspace
+    environment:
+      TERM: dumb
+
+jobs:
+  check:
+    <<: *config_android
     steps:
       - checkout
       - restore_cache:
@@ -24,10 +35,55 @@ jobs:
           paths:
             - ~/.gradle
       - run:
-          name: Run JVM Tests & Lint
+          name: Run Tests & Lint
           command: ./gradlew check
       - store_artifacts:
           path: app/build/reports
           destination: reports
       - store_test_results:
           path: app/build/test-results
+
+  build:
+    <<: *config_android
+    steps:
+      - checkout
+      - restore_cache:
+          <<: *cache_key
+#      - run:
+#          name: Download Dependencies
+#          command: ./gradlew dependencies
+#      - save_cache:
+#          <<: *cache_key
+#          paths:
+#            - ~/.gradle
+      - run:
+          name: Assemble apk and test apk
+          command: ./gradlew assemble assembleAndroidTest
+
+  test_instrumented:
+    <<: *config_gcloud
+    steps:
+      - checkout
+      - attach_workspace:
+          at: ~/workspace
+      - run:
+          name: Setup Google Cloud & Authenticate
+          command: .circleci/scripts/firebase_test_lab_setup.sh
+      - run:
+          name: Run tests on Firebase Test Lab and download results
+          command: .circleci/scripts/firebase_run_tests.sh $CIRCLE_BUILD_NUM instrumented_test_results
+          when: always
+      - store_artifacts:
+          path: instrumented_test_results
+      - store_test_Results:
+          path: instrumented_test_results
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - check
+      - build
+      - test_instrumented:
+          requires:
+            - build
