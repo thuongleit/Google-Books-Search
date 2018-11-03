@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Google Books Search</string>
     <string name="book_title_or_an_url_hint">Book title or an url</string>
+    <string name="searching_by_enter_title_or_an_url_hint">Searching by enter title or an url</string>
 </resources>
