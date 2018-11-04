@@ -68,8 +68,8 @@ class SearchActivity : AppCompatActivity() {
                 false
             }
         }
-        btn_search.isClickable = false
         btn_search.setOnClickListener { performSearch(ed_query) }
+        btn_search.isClickable = false
         binding.retryCallback = object : Callback {
             override fun invoke() {
                 searchViewModel.retryQuery()

@@ -111,7 +111,21 @@ class SearchActivityTest {
                 )
             )
         )
-        onView(withId(R.id.progress)).check(
+        onView(withId(R.id.progress_bar)).check(
+            matches(
+                not(
+                    isDisplayed()
+                )
+            )
+        )
+        onView(withId(R.id.btn_retry)).check(
+            matches(
+                not(
+                    isDisplayed()
+                )
+            )
+        )
+        onView(withId(R.id.tv_error_message)).check(
             matches(
                 not(
                     isDisplayed()
