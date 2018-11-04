@@ -68,6 +68,7 @@ class SearchActivity : AppCompatActivity() {
                 false
             }
         }
+        btn_search.isClickable = false
         btn_search.setOnClickListener { performSearch(ed_query) }
         binding.retryCallback = object : Callback {
             override fun invoke() {
@@ -85,14 +86,13 @@ class SearchActivity : AppCompatActivity() {
             result?.let {
                 if (it.isError
                     && it.status?.error is IOException
-                    && !this@SearchActivity.isConnected()) {
+                    && !this@SearchActivity.isConnected()
+                ) {
                     binding.customErrorMsg = getString(R.string.no_internet_connection_msg)
                 }
             }
             binding.result = result
-        })
-        searchViewModel.booksResult.observe(this, Observer { result ->
-            adapter?.submitList(result)
+            adapter?.submitList(result?.data)
         })
     }
 
