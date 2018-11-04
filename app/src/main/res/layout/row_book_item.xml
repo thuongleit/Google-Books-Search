@@ -6,7 +6,7 @@
     <data>
         <variable
             name="item"
-            type="me.thuongle.googlebookssearch.api.GoogleBook" />
+            type="me.thuongle.googlebookssearch.api.GoogleBook"/>
 
     </data>
     <LinearLayout
@@ -43,6 +43,7 @@
                 android:textStyle="bold"
                 android:text="@{item.bookInfo.title}"
                 android:maxLines="2"
+                android:ellipsize="end"
                 tools:text="Android Studio 3.0 Development Essentials - Android 8 Edition"/>
 
             <TextView
@@ -50,6 +51,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:maxLines="1"
+                android:ellipsize="end"
                 android:text="@{item.bookInfo.authors}"
                 tools:text="Neil Smyth"/>
         </LinearLayout>
