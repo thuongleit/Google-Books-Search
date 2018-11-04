@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
+import android.view.View
 import android.view.inputmethod.EditorInfo
 import kotlinx.android.synthetic.main.activity_search.*
 import me.thuongle.googlebookssearch.R
@@ -16,6 +17,7 @@ import me.thuongle.googlebookssearch.repository.BookRepository
 import me.thuongle.googlebookssearch.ui.common.BookListAdapter
 import me.thuongle.googlebookssearch.ui.common.Callback
 import me.thuongle.googlebookssearch.util.AppExecutors
+import me.thuongle.googlebookssearch.util.dismissKeyboard
 import me.thuongle.googlebookssearch.util.isConnected
 import java.io.IOException
 
@@ -50,23 +52,23 @@ class SearchActivity : AppCompatActivity() {
             }
         })
 
-        ed_query.setOnEditorActionListener { _, actionId, _ ->
+        ed_query.setOnEditorActionListener { v, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                performSearch()
+                performSearch(v)
                 true
             } else {
                 false
             }
         }
-        ed_query.setOnKeyListener { _, keyCode, event ->
+        ed_query.setOnKeyListener { v, keyCode, event ->
             if (event.action == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_ENTER) {
-                performSearch()
+                performSearch(v)
                 true
             } else {
                 false
             }
         }
-        btn_search.setOnClickListener { performSearch() }
+        btn_search.setOnClickListener { performSearch(ed_query) }
         binding.retryCallback = object : Callback {
             override fun invoke() {
                 searchViewModel.retryQuery()
@@ -94,7 +96,8 @@ class SearchActivity : AppCompatActivity() {
         })
     }
 
-    private fun performSearch() {
+    private fun performSearch(receiver: View) {
+        dismissKeyboard(receiver.windowToken)
         val query = ed_query.text.toString()
         searchViewModel.searchBooks(query)
         binding.query = query
