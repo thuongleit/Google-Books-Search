@@ -48,6 +48,9 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}"
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    //image tools
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+
     //debug tools
     implementation 'com.jakewharton.timber:timber:4.5.1'
 
