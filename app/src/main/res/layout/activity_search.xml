@@ -6,7 +6,17 @@
     tools:context=".ui.search.SearchActivity">
 
     <data>
+        <import type="java.util.List"/>
+        <import type="me.thuongle.googlebookssearch.model.NetworkStatus"/>
+        <import type="me.thuongle.googlebookssearch.model.Result"/>
 
+        <variable
+            name="query"
+            type="String"/>
+
+        <variable
+            name="result"
+            type="Result"/>
 
     </data>
 
@@ -23,38 +33,38 @@
             android:imeOptions="actionSearch"
             android:inputType="text"
             android:lines="1"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"
+            android:layout_marginTop="@dimen/default_margin"
+            android:layout_marginLeft="@dimen/default_margin"
+            android:layout_marginStart="@dimen/default_margin"
             app:layout_constraintEnd_toStartOf="@+id/btn_search"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-    <ImageButton
-        android:id="@+id/btn_search"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:padding="8dp"
-        android:tint="@color/colorPrimary"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/ed_query"
-        app:layout_constraintTop_toTopOf="@+id/ed_query"
-        android:clickable="false"
-        app:srcCompat="@drawable/ic_search"
-        app:layout_constraintBottom_toBottomOf="@+id/ed_query"
-        app:layout_constraintVertical_bias="0.333"/>
+        <ImageButton
+            android:id="@+id/btn_search"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:padding="8dp"
+            android:tint="@color/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/ed_query"
+            app:layout_constraintTop_toTopOf="@+id/ed_query"
+            android:clickable="false"
+            app:srcCompat="@drawable/ic_search"
+            app:layout_constraintBottom_toBottomOf="@+id/ed_query"
+            app:layout_constraintVertical_bias="0.333"/>
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/rv_book_list"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="@dimen/default_margin"
             app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:visibility="invisible"
+            tools:listitem="@layout/row_book_item"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/ed_query"/>
 
@@ -68,18 +78,20 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/rv_book_list"
-            android:text="@string/searching_by_enter_title_or_an_url_hint"
+            android:text="@{query != null ? @string/empty_search_result(query) : @string/searching_by_enter_title_or_an_url_hint}"
+            app:visible="@{!result.isLoading &amp;&amp; !result.isError &amp;&amp; !result.hasData}"
             tools:text="No books found"/>
 
-        <ProgressBar
-            android:id="@+id/progress"
+        <include
+            layout="@layout/layout_loading_state"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:result="@{result}"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/rv_book_list"
-            android:visibility="gone"/>
+            android:layout_margin="@dimen/default_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/rv_book_list"/>
 
     </android.support.constraint.ConstraintLayout>
 </layout>

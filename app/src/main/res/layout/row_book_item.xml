@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="item"
+            type="me.thuongle.googlebookssearch.api.GoogleBook" />
+
+    </data>
+    <LinearLayout
+        android:id="@+id/layout_book_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_book_cover"
+            android:layout_width="0dp"
+            android:layout_height="100dp"
+            tools:background="@color/colorPrimary"
+            android:layout_weight="2"
+            android:layout_margin="8dp"/>
+
+        <LinearLayout
+            android:id="@+id/layout_book_description"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="6"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginEnd="4dp">
+
+            <TextView
+                android:id="@+id/tv_book_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold"
+                android:text="@{item.bookInfo.title}"
+                android:lines="2"
+                tools:text="Android Studio 3.0 Development Essentials - Android 8 Edition"/>
+
+            <TextView
+                android:id="@+id/tv_book_author"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:text="Neil Smyth"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</layout>

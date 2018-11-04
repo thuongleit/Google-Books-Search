@@ -14,7 +14,7 @@ interface GoogleBooksService {
     @GET("volumes")
     fun searchBooks(
         @Query("q") query: String,
-        @Query("startIndex") startIndex: Int
+        @Query("startIndex") startIndex: Int = 0
     ): Call<GoogleVolumeResponse>
 
     companion object {
