@@ -16,6 +16,8 @@ import me.thuongle.googlebookssearch.repository.BookRepository
 import me.thuongle.googlebookssearch.ui.common.BookListAdapter
 import me.thuongle.googlebookssearch.ui.common.Callback
 import me.thuongle.googlebookssearch.util.AppExecutors
+import me.thuongle.googlebookssearch.util.isConnected
+import java.io.IOException
 
 class SearchActivity : AppCompatActivity() {
 
@@ -67,7 +69,7 @@ class SearchActivity : AppCompatActivity() {
         btn_search.setOnClickListener { performSearch() }
         binding.retryCallback = object : Callback {
             override fun invoke() {
-                performSearch()
+                searchViewModel.retryQuery()
             }
         }
 
@@ -78,6 +80,13 @@ class SearchActivity : AppCompatActivity() {
 
     private fun initViewModel() {
         searchViewModel.searchResult.observe(this, Observer { result ->
+            result?.let {
+                if (it.isError
+                    && it.status?.error is IOException
+                    && !this@SearchActivity.isConnected()) {
+                    binding.customErrorMsg = getString(R.string.no_internet_connection_msg)
+                }
+            }
             binding.result = result
         })
         searchViewModel.booksResult.observe(this, Observer { result ->

@@ -5,4 +5,5 @@
     <string name="searching_by_enter_title_or_an_url_hint">Searching books by enter title or an url</string>
     <string name="retry">Retry</string>
     <string name="empty_search_result">No results for <b>%s</b></string>
+    <string name="no_internet_connection_msg">No Internet connection</string>
 </resources>

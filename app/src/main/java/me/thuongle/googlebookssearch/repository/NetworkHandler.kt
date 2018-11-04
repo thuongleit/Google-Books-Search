@@ -7,7 +7,6 @@ import me.thuongle.googlebookssearch.util.AppExecutors
 import me.thuongle.googlebookssearch.util.postValueIfNew
 import me.thuongle.googlebookssearch.util.setValueIfNew
 import timber.log.Timber
-import java.io.IOException
 
 abstract class NetworkHandler<ResultType>(appExecutors: AppExecutors) {
 
@@ -19,7 +18,7 @@ abstract class NetworkHandler<ResultType>(appExecutors: AppExecutors) {
             try {
                 val data = requestService()
                 result.postValueIfNew(Result.success(data))
-            } catch (e: IOException) {
+            } catch (e: Exception) {
                 Timber.e(e.message, e)
                 result.postValueIfNew(Result.error(e.message ?: "Unknown", e))
             }

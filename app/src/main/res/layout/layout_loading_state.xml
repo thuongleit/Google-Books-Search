@@ -5,11 +5,14 @@
     <data>
 
         <import type="me.thuongle.googlebookssearch.model.Result"/>
-        <import type="me.thuongle.googlebookssearch.model.NetworkStatus"/>
 
         <variable
             name="result"
             type="Result"/>
+
+        <variable
+            name="customErrorMsg"
+            type="String"/>
 
         <variable
             name="callback"
@@ -37,7 +40,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/default_margin"
-            android:text="@{result.status.message ?? @string/unknown_error}"
+            android:text="@{customErrorMsg != null ? customErrorMsg : (result.status.message ?? @string/unknown_error)}"
             tools:text="@string/unknown_error"
             app:visible="@{result.isError}"/>
 

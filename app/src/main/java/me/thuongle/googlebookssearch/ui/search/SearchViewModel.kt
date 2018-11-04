@@ -33,4 +33,10 @@ class SearchViewModel(private val bookRepository: BookRepository) : ViewModel() 
         }
         query.value = input
     }
+
+    fun retryQuery() {
+        query.value?.let {
+            query.value = it
+        }
+    }
 }

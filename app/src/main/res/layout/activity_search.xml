@@ -7,7 +7,6 @@
 
     <data>
         <import type="java.util.List"/>
-        <import type="me.thuongle.googlebookssearch.model.NetworkStatus"/>
         <import type="me.thuongle.googlebookssearch.model.Result"/>
 
         <variable
@@ -17,6 +16,10 @@
         <variable
             name="result"
             type="Result"/>
+
+        <variable
+            name="customErrorMsg"
+            type="String"/>
 
         <variable
             name="retryCallback"
@@ -91,6 +94,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:result="@{result}"
+            app:customErrorMsg="@{customErrorMsg}"
             app:callback="@{retryCallback}"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_margin="@dimen/default_margin"
