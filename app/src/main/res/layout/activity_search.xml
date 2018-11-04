@@ -18,6 +18,10 @@
             name="result"
             type="Result"/>
 
+        <variable
+            name="retryCallback"
+            type="me.thuongle.googlebookssearch.ui.common.Callback"/>
+
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -87,6 +91,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:result="@{result}"
+            app:callback="@{retryCallback}"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_margin="@dimen/default_margin"
             app:layout_constraintEnd_toEndOf="parent"

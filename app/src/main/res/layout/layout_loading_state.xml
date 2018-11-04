@@ -10,6 +10,10 @@
         <variable
             name="result"
             type="Result"/>
+
+        <variable
+            name="callback"
+            type="me.thuongle.googlebookssearch.ui.common.Callback"/>
     </data>
 
     <LinearLayout
@@ -32,8 +36,18 @@
             android:id="@+id/tv_error_message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
             android:text="@{result.status.message ?? @string/unknown_error}"
             tools:text="@string/unknown_error"
+            app:visible="@{result.isError}"/>
+
+        <Button
+            android:id="@+id/btn_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"
+            android:onClick="@{() -> callback.invoke()}"
+            android:padding="@dimen/default_margin"
             app:visible="@{result.isError}"/>
     </LinearLayout>
 </layout>

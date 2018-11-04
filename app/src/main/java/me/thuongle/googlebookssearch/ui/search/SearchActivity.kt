@@ -14,6 +14,7 @@ import me.thuongle.googlebookssearch.R
 import me.thuongle.googlebookssearch.databinding.ActivitySearchBinding
 import me.thuongle.googlebookssearch.repository.BookRepository
 import me.thuongle.googlebookssearch.ui.common.BookListAdapter
+import me.thuongle.googlebookssearch.ui.common.Callback
 import me.thuongle.googlebookssearch.util.AppExecutors
 
 class SearchActivity : AppCompatActivity() {
@@ -64,6 +65,11 @@ class SearchActivity : AppCompatActivity() {
             }
         }
         btn_search.setOnClickListener { performSearch() }
+        binding.retryCallback = object : Callback {
+            override fun invoke() {
+                performSearch()
+            }
+        }
 
         val bookListAdapter = BookListAdapter(appExecutors = AppExecutors())
         rv_book_list.adapter = bookListAdapter
