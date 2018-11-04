@@ -21,7 +21,7 @@ data class GoogleBook(
         @SerializedName("subtitle")
         val subtitle: String,
         @SerializedName("authors")
-        val authors: List<String>,
+        val authorsList: List<String>,
         @SerializedName("publisher")
         val publisher: String,
         @SerializedName("publishedDate")
@@ -54,7 +54,12 @@ data class GoogleBook(
         val infoLink: String,
         @SerializedName("canonicalVolumeLink")
         val canonicalVolumeLink: String
-    )
+    ) {
+        val authors: String
+            // list.toString() --> [Author-A, Author-B,] --> Author-A, Author-B
+            get() = authorsList.toString().drop(1).dropLast(2)
+
+    }
 
     data class IndustryIdentifierInfo(
         val type: String,

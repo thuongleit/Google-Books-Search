@@ -42,13 +42,15 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold"
                 android:text="@{item.bookInfo.title}"
-                android:lines="2"
+                android:maxLines="2"
                 tools:text="Android Studio 3.0 Development Essentials - Android 8 Edition"/>
 
             <TextView
                 android:id="@+id/tv_book_author"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:maxLines="1"
+                android:text="@{item.bookInfo.authors}"
                 tools:text="Neil Smyth"/>
         </LinearLayout>
     </LinearLayout>
