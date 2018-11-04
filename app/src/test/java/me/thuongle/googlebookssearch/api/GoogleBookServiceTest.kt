@@ -42,7 +42,7 @@ class GoogleBookServiceTest {
 
         //test request
         val request = mockWebServer.takeRequest()
-        assertThat(request.path, `is`("/volumes?q=books&startIndex=10"))
+        assertThat(request.path, `is`("/volumes?q=books&startIndex=10&maxResults=40"))
 
         //test response
         val body = response.body()
@@ -60,9 +60,10 @@ class GoogleBookServiceTest {
         firstBook.bookInfo.let { bookInfo ->
             assertThat(bookInfo.title, `is`("title_1"))
             assertThat(bookInfo.subtitle, `is`("subtitle_1"))
-            assertThat(bookInfo.authors.size, `is`(2))
-            assertThat(bookInfo.authors[0], `is`("author_1"))
-            assertThat(bookInfo.authors[1], `is`("author_2"))
+            assertThat(bookInfo.authorsList.size, `is`(2))
+            assertThat(bookInfo.authorsList[0], `is`("author_1"))
+            assertThat(bookInfo.authorsList[1], `is`("author_2"))
+            assertThat(bookInfo.authors, `is`("author_1, author_2"))
             assertThat(bookInfo.publisher, `is`("publisher_1"))
             assertThat(bookInfo.publishedDate, `is`("2000"))
             assertThat(bookInfo.description, `is`("description_1"))

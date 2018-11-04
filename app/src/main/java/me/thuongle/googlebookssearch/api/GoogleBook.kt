@@ -56,8 +56,8 @@ data class GoogleBook(
         val canonicalVolumeLink: String
     ) {
         val authors: String
-            // list.toString() --> [Author-A, Author-B,] --> Author-A, Author-B
-            get() = authorsList.toString().drop(1).dropLast(2)
+            // list.toString() --> [Author-A, Author-B] --> Author-A, Author-B
+            get() = authorsList.toString().drop(1).dropLast(1)
 
     }
 
