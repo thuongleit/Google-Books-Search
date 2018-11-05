@@ -12,12 +12,24 @@ class BookRepository private constructor(
 ) {
 
     fun search(query: String): LiveResult<List<GoogleBook>> {
-        Timber.d("Search books with q=$query")
+        Timber.d("Search books [type=${service.getType()}, query=$query]")
         return object : NetworkHandler<List<GoogleBook>>(appExecutors) {
             override fun requestService(): List<GoogleBook>? {
                 return service.searchBooks(query).items
                     .also {
-                        Timber.d("Search books-result: $it")
+                        Timber.d("Search books: [Results=$it]")
+                    }
+            }
+        }.result
+    }
+
+    fun searchWithUrl(url: String): LiveResult<List<GoogleBook>> {
+        Timber.d("Search books: [type=${service.getType()}, url=$url]")
+        return object : NetworkHandler<List<GoogleBook>>(appExecutors) {
+            override fun requestService(): List<GoogleBook>? {
+                return service.searchBooksWithUrl(url).items
+                    .also {
+                        Timber.d("Search books: [Results=$it]")
                     }
             }
         }.result

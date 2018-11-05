@@ -7,11 +7,11 @@ import me.thuongle.googlebookssearch.util.toUrlEncodeUTF8
 /**
  * REST API access points for Google Books API using HttpURLConnection
  */
-class GoogleBooksLegacyService private constructor() {
+class GoogleBooksLegacyService : BookService {
 
     @WorkerThread
     @Throws(Exception::class)
-    fun searchBooks(query: String, startIndex: Int, maxResults: Int): GoogleVolumeResponse {
+    override fun searchBooks(query: String, startIndex: Int, maxResults: Int): GoogleVolumeResponse {
         return RestClient.create().let { client ->
             val parameters = mapOf(
                 "q" to query,
@@ -26,6 +26,18 @@ class GoogleBooksLegacyService private constructor() {
                 })
         }
     }
+
+    override fun searchBooksWithUrl(url: String): GoogleVolumeResponse {
+        return RestClient.create().let { client ->
+            client.execute(
+                requestUrl = url,
+                processResponse = {
+                    Gson().fromJson(it, GoogleVolumeResponse::class.java)
+                })
+        }
+    }
+
+    override fun getType(): BookService.NetworkExecutorType = BookService.NetworkExecutorType.LEGACY
 
     companion object {
         fun create(): GoogleBooksLegacyService {

@@ -14,6 +14,10 @@ interface BookService {
         maxResults: Int = 40
     ): GoogleVolumeResponse
 
+    @WorkerThread
+    @Throws(Exception::class)
+    fun searchBooksWithUrl(url: String): GoogleVolumeResponse
+
     fun getType(): NetworkExecutorType
 
     enum class NetworkExecutorType {

@@ -2,6 +2,7 @@ package me.thuongle.googlebookssearch.ui.search
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Patterns
 import me.thuongle.googlebookssearch.api.GoogleBook
 import me.thuongle.googlebookssearch.model.AbsentLiveData
 import me.thuongle.googlebookssearch.model.LiveResult
@@ -16,7 +17,11 @@ class SearchViewModel(val repository: BookRepository) : ViewModel() {
         if (queryText.isNullOrBlank()) {
             AbsentLiveData.create()
         } else {
-            repository.search(queryText)
+            if (Patterns.WEB_URL.matcher(queryText).matches()) {
+                repository.searchWithUrl(queryText)
+            } else {
+                repository.search(queryText)
+            }
         }
     }
 
