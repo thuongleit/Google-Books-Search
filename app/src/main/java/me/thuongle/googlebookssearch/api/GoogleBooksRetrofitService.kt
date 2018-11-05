@@ -7,9 +7,9 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 /**
- * REST API access points for Google Books API
+ * REST API access points for Google Books API using Retrofit
  */
-interface GoogleBooksService {
+interface GoogleBooksRetrofitService {
 
     @GET("volumes")
     fun searchBooks(
@@ -19,12 +19,12 @@ interface GoogleBooksService {
     ): Call<GoogleVolumeResponse>
 
     companion object {
-        fun create(): GoogleBooksService? {
+        fun create(): GoogleBooksRetrofitService {
             return Retrofit.Builder()
-                .baseUrl("https://www.googleapis.com/books/v1/")
+                .baseUrl(GOOGLE_BOOK_API_ENDPOINT)
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
-                .create(GoogleBooksService::class.java)
+                .create(GoogleBooksRetrofitService::class.java)
         }
     }
 }

@@ -58,4 +58,10 @@ open class AppExecutors(
             mainThreadHandler.post(command)
         }
     }
+
+    companion object {
+        fun create(): AppExecutors {
+            return AppExecutors()
+        }
+    }
 }

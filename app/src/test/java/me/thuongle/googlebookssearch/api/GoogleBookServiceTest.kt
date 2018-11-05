@@ -16,18 +16,18 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 @RunWith(JUnit4::class)
 class GoogleBookServiceTest {
-    private lateinit var service: GoogleBooksService
+    private lateinit var retrofitService: GoogleBooksRetrofitService
 
     private lateinit var mockWebServer: MockWebServer
 
     @Before
     fun createService() {
         mockWebServer = MockWebServer()
-        service = Retrofit.Builder()
+        retrofitService = Retrofit.Builder()
             .baseUrl(mockWebServer.url("/"))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-            .create(GoogleBooksService::class.java)
+            .create(GoogleBooksRetrofitService::class.java)
     }
 
     @After
@@ -38,7 +38,7 @@ class GoogleBookServiceTest {
     @Test
     fun searchBooks() {
         enqueueResponse("books_search.json")
-        val response = service.searchBooks("books", 10).execute()
+        val response = retrofitService.searchBooks("books", 10).execute()
 
         //test request
         val request = mockWebServer.takeRequest()

@@ -12,6 +12,8 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import kotlinx.android.synthetic.main.activity_search.*
 import me.thuongle.googlebookssearch.R
+import me.thuongle.googlebookssearch.api.BookService
+import me.thuongle.googlebookssearch.api.BookServiceImpl
 import me.thuongle.googlebookssearch.databinding.ActivitySearchBinding
 import me.thuongle.googlebookssearch.repository.BookRepository
 import me.thuongle.googlebookssearch.ui.common.BookListAdapter
@@ -31,7 +33,8 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
-        val viewModelFactory = ViewModelFactory(BookRepository.getInstance())
+        val bookService = BookServiceImpl.create(BookService.ServiceType.LEGACY)
+        val viewModelFactory = ViewModelFactory(BookRepository.getInstance(bookService, AppExecutors.create()))
         searchViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(SearchViewModel::class.java)
 
