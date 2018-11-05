@@ -14,7 +14,7 @@ class BookRepository private constructor(
     fun search(query: String): LiveResult<List<GoogleBook>> {
         Timber.d("Search books [type=${service.getType()}, query=$query]")
         return object : NetworkHandler<List<GoogleBook>>(appExecutors) {
-            override fun requestService(): List<GoogleBook>? {
+            override fun execute(): List<GoogleBook>? {
                 return service.searchBooks(query).items
                     .also {
                         Timber.d("Search books: [Results=$it]")
@@ -26,7 +26,7 @@ class BookRepository private constructor(
     fun searchWithUrl(url: String): LiveResult<List<GoogleBook>> {
         Timber.d("Search books: [type=${service.getType()}, url=$url]")
         return object : NetworkHandler<List<GoogleBook>>(appExecutors) {
-            override fun requestService(): List<GoogleBook>? {
+            override fun execute(): List<GoogleBook>? {
                 return service.searchBooksWithUrl(url).items
                     .also {
                         Timber.d("Search books: [Results=$it]")

@@ -16,7 +16,7 @@ abstract class NetworkHandler<ResultType>(appExecutors: AppExecutors) {
         result.setValueIfNew(Result.loading(null))
         appExecutors.networkIO().execute {
             try {
-                val data = requestService()
+                val data = execute()
                 result.postValueIfNew(Result.success(data))
             } catch (e: Exception) {
                 Timber.e(e.message, e)
@@ -26,5 +26,5 @@ abstract class NetworkHandler<ResultType>(appExecutors: AppExecutors) {
     }
 
     @WorkerThread
-    protected abstract fun requestService(): ResultType?
+    protected abstract fun execute(): ResultType?
 }
