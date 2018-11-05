@@ -9,14 +9,14 @@ import me.thuongle.googlebookssearch.repository.BookRepository
 import me.thuongle.googlebookssearch.util.switchMap
 import java.util.*
 
-class SearchViewModel(val bookRepository: BookRepository) : ViewModel() {
+class SearchViewModel(val repository: BookRepository) : ViewModel() {
     private val query = MutableLiveData<String>()
 
     val searchResult: LiveResult<List<GoogleBook>> = query.switchMap { queryText ->
         if (queryText.isNullOrBlank()) {
             AbsentLiveData.create()
         } else {
-            bookRepository.search(queryText)
+            repository.search(queryText)
         }
     }
 

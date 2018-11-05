@@ -4,7 +4,8 @@ import android.support.annotation.WorkerThread
 import java.io.IOException
 import java.net.UnknownServiceException
 
-class BookServiceImpl private constructor(val type: BookService.NetworkExecutorType) : BookService {
+class BookServiceImpl private constructor(val networkExecutorType: BookService.NetworkExecutorType) : BookService {
+
 
     @WorkerThread
     @Throws(Exception::class)
@@ -31,10 +32,10 @@ class BookServiceImpl private constructor(val type: BookService.NetworkExecutorT
         }
     }
 
-    override fun getNetworkExecutorType(): BookService.NetworkExecutorType = type
+    override fun getType(): BookService.NetworkExecutorType = networkExecutorType
 
     fun getService(): Any {
-        return when (type) {
+        return when (networkExecutorType) {
             BookService.NetworkExecutorType.RETROFIT -> GoogleBooksRetrofitService.create()
             BookService.NetworkExecutorType.LEGACY -> GoogleBooksLegacyService.create()
         }

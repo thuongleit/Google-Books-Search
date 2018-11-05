@@ -7,4 +7,5 @@
     <string name="empty_search_result">No results for <b>%s</b></string>
     <string name="no_internet_connection_msg">No Internet connection</string>
     <string name="executed_network_type_hint">Executed by \'<b>%s</b>\' network implementation</string>
+    <string name="swap_service_hint">Swap to %s</string>
 </resources>

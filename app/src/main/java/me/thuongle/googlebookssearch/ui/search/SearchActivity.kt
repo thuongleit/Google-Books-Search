@@ -8,11 +8,15 @@ import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.KeyEvent
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_search.*
 import me.thuongle.googlebookssearch.BuildConfig
 import me.thuongle.googlebookssearch.R
+import me.thuongle.googlebookssearch.api.BookService
 import me.thuongle.googlebookssearch.api.BookServiceImpl
 import me.thuongle.googlebookssearch.databinding.ActivitySearchBinding
 import me.thuongle.googlebookssearch.repository.BookRepository
@@ -40,6 +44,36 @@ class SearchActivity : AppCompatActivity() {
 
         initViews()
         initViewModel()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
+        menuInflater.inflate(R.menu.search, menu)
+        return true
+    }
+
+    override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
+        menu?.findItem(R.id.swap_service)?.let { swapMenu ->
+            val currentNetworkType = searchViewModel.repository.getService().getType()
+            swapMenu.title = getString(R.string.swap_service_hint, BookService.NetworkExecutorType.swap(currentNetworkType))
+        }
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                finish()
+                true
+            }
+            R.id.swap_service -> {
+                val newType =
+                    BookService.NetworkExecutorType.swap(searchViewModel.repository.getService().getType())
+                searchViewModel.repository.swapService(BookServiceImpl.create(newType))
+                Toast.makeText(this, getString(R.string.swap_service_hint, newType), Toast.LENGTH_SHORT).show()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 
     private fun initViews() {
@@ -103,7 +137,7 @@ class SearchActivity : AppCompatActivity() {
         dismissKeyboard(receiver.windowToken)
         val query = ed_query.text.toString()
         searchViewModel.searchBooks(query)
-        binding.networkType = searchViewModel.bookRepository.service.getNetworkExecutorType().name.toLowerCase()
+        binding.networkType = searchViewModel.repository.getService().getType().toString()
         binding.query = query
     }
 }

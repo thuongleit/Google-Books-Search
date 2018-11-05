@@ -7,7 +7,7 @@ import me.thuongle.googlebookssearch.util.AppExecutors
 import timber.log.Timber
 
 class BookRepository private constructor(
-    val service: BookService,
+    private var service: BookService,
     val appExecutors: AppExecutors
 ) {
 
@@ -22,6 +22,12 @@ class BookRepository private constructor(
             }
         }.result
     }
+
+    fun swapService(newService: BookService){
+        service = newService
+    }
+
+    fun getService() = service
 
     companion object {
         @Volatile
