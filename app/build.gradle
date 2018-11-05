@@ -4,6 +4,8 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
+    def networkExecutorType = "me.thuongle.googlebookssearch.api.BookService.NetworkExecutorType.RETROFIT"
+
     compileSdkVersion versions.compileSdk
     defaultConfig {
         applicationId "me.thuongle.googlebookssearch"
@@ -13,6 +15,7 @@ android {
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
+        buildConfigField "me.thuongle.googlebookssearch.api.BookService.NetworkExecutorType", "NETWORK_EXECUTOR_TYPE", networkExecutorType
     }
 
     buildTypes {

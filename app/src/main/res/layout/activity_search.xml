@@ -14,6 +14,10 @@
             type="String"/>
 
         <variable
+            name="networkType"
+            type="String"/>
+
+        <variable
             name="result"
             type="Result"/>
 
@@ -95,6 +99,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:result="@{result}"
+            app:networkType="@{networkType}"
             app:customErrorMsg="@{customErrorMsg}"
             app:callback="@{retryCallback}"
             app:layout_constraintStart_toStartOf="parent"

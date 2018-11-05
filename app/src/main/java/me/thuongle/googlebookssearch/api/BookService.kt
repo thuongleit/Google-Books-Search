@@ -14,7 +14,9 @@ interface BookService {
         maxResults: Int = 40
     ): GoogleVolumeResponse
 
-    enum class ServiceType {
+    fun getNetworkExecutorType(): NetworkExecutorType
+
+    enum class NetworkExecutorType {
         RETROFIT,
         LEGACY
     }

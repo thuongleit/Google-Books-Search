@@ -7,11 +7,11 @@ import me.thuongle.googlebookssearch.util.toUrlEncodeUTF8
 /**
  * REST API access points for Google Books API using HttpURLConnection
  */
-class GoogleBooksLegacyService private constructor() : BookService {
+class GoogleBooksLegacyService private constructor() {
 
     @WorkerThread
     @Throws(Exception::class)
-    override fun searchBooks(query: String, startIndex: Int, maxResults: Int): GoogleVolumeResponse {
+    fun searchBooks(query: String, startIndex: Int, maxResults: Int): GoogleVolumeResponse {
         return RestClient.create().let { client ->
             val parameters = mapOf(
                 "q" to query,

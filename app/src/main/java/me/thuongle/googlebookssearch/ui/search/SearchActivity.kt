@@ -11,8 +11,8 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import kotlinx.android.synthetic.main.activity_search.*
+import me.thuongle.googlebookssearch.BuildConfig
 import me.thuongle.googlebookssearch.R
-import me.thuongle.googlebookssearch.api.BookService
 import me.thuongle.googlebookssearch.api.BookServiceImpl
 import me.thuongle.googlebookssearch.databinding.ActivitySearchBinding
 import me.thuongle.googlebookssearch.repository.BookRepository
@@ -33,7 +33,7 @@ class SearchActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
-        val bookService = BookServiceImpl.create(BookService.ServiceType.LEGACY)
+        val bookService = BookServiceImpl.create(BuildConfig.NETWORK_EXECUTOR_TYPE)
         val viewModelFactory = ViewModelFactory(BookRepository.getInstance(bookService, AppExecutors.create()))
         searchViewModel = ViewModelProviders.of(this, viewModelFactory)
             .get(SearchViewModel::class.java)
@@ -103,6 +103,7 @@ class SearchActivity : AppCompatActivity() {
         dismissKeyboard(receiver.windowToken)
         val query = ed_query.text.toString()
         searchViewModel.searchBooks(query)
+        binding.networkType = searchViewModel.bookRepository.service.getNetworkExecutorType().name.toLowerCase()
         binding.query = query
     }
 }
