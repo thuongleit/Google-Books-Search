@@ -92,7 +92,7 @@ dependencies {
     androidTestImplementation "org.mockito:mockito-core:${versions.mockito}"
     androidTestImplementation "org.mockito:mockito-android:${versions.mockito}"
 
-    androidTestUtil 'com.android.support.test:orchestrator:1.0.1'
+    androidTestUtil 'com.android.support.test:orchestrator:1.0.2'
 }
 // we need all open to run tests in debug variant. UT in release variant will always fail
 // disable check UT in release
