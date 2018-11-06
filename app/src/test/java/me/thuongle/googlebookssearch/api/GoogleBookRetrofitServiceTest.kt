@@ -7,23 +7,30 @@ import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
+import org.junit.Assert.assertTrue
+import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.IOException
+import java.net.HttpURLConnection
 
 @RunWith(JUnit4::class)
 class GoogleBookRetrofitServiceTest {
     private lateinit var service: GoogleBooksRetrofitService
-    private lateinit var mockWebServer: MockWebServer
+    private lateinit var server: MockWebServer
 
     @Before
     fun createService() {
-        mockWebServer = MockWebServer()
+        server = MockWebServer()
         service = Retrofit.Builder()
-            .baseUrl(mockWebServer.url("/"))
+            .baseUrl(server.url("/"))
             .addConverterFactory(GsonConverterFactory.create())
             .build()
             .create(GoogleBooksRetrofitService::class.java)
@@ -31,22 +38,73 @@ class GoogleBookRetrofitServiceTest {
 
     @After
     fun stopService() {
-        mockWebServer.shutdown()
+        server.shutdown()
     }
 
     @Test
-    fun searchBooksByQuery() {
+    fun `search books by query, return 200 OK`() {
         enqueueResponse("books_search.json")
         val response = service.searchBooks("books", 10).execute()
 
         //test request
-        val request = mockWebServer.takeRequest()
+        val request = server.takeRequest()
         assertThat(request.path, `is`("/volumes?q=books&startIndex=10&maxResults=40"))
 
         //test response
         val body = response.body()
-
         assertResponse(body)
+    }
+
+    @Test
+    fun `search books by url, return 200 OK`() {
+        enqueueResponse("books_search.json")
+        val response = service.searchBooks(url = "/volumes?q=book").execute()
+
+        //test request
+        val request = server.takeRequest()
+        assertThat(request.path, `is`("/volumes?q=book"))
+
+        //test response
+        val body = response.body()
+        assertResponse(body)
+    }
+
+    @Test
+    fun `search books by query, return error`() {
+        MockResponse()
+            .setResponseCode(HttpURLConnection.HTTP_INTERNAL_ERROR)
+            .let {
+                server.enqueue(it)
+            }
+        service.searchBooks(query = "books").enqueue(object : Callback<GoogleVolumeResponse?> {
+            override fun onFailure(call: Call<GoogleVolumeResponse?>, t: Throwable) {
+                assertThat(call.isExecuted, `is`(true))
+                assertTrue(t is IOException)
+            }
+
+            override fun onResponse(call: Call<GoogleVolumeResponse?>, response: Response<GoogleVolumeResponse?>) {
+                fail("Test should not reach here")
+            }
+        })
+    }
+
+    @Test
+    fun `search books by url, return error`() {
+        MockResponse()
+            .setResponseCode(HttpURLConnection.HTTP_NOT_FOUND)
+            .let {
+                server.enqueue(it)
+            }
+        service.searchBooks(url = "/").enqueue(object : Callback<GoogleVolumeResponse?> {
+            override fun onFailure(call: Call<GoogleVolumeResponse?>, t: Throwable) {
+                assertThat(call.isExecuted, `is`(true))
+                assertTrue(t is IOException)
+            }
+
+            override fun onResponse(call: Call<GoogleVolumeResponse?>, response: Response<GoogleVolumeResponse?>) {
+                fail("Test should not reach here")
+            }
+        })
     }
 
     private fun assertResponse(body: GoogleVolumeResponse?) {
@@ -99,7 +157,7 @@ class GoogleBookRetrofitServiceTest {
             for ((key, value) in headers) {
                 mockResponse.addHeader(key, value)
             }
-            mockWebServer.enqueue(
+            server.enqueue(
                 mockResponse
                     .setBody(source.readString(Charsets.UTF_8))
             )
