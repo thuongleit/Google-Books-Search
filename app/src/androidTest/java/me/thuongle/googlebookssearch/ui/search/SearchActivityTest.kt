@@ -1,4 +1,4 @@
-package me.thuongle.googlebookssearch
+package me.thuongle.googlebookssearch.ui.search
 
 
 import android.support.test.InstrumentationRegistry
@@ -14,7 +14,7 @@ import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.test.uiautomator.UiDevice
 import android.view.inputmethod.EditorInfo
-import me.thuongle.googlebookssearch.ui.search.SearchActivity
+import me.thuongle.googlebookssearch.R
 import me.thuongle.googlebookssearch.utils.hasItemCount
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
