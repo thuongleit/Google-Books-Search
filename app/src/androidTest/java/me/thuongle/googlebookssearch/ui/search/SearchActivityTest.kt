@@ -2,26 +2,38 @@ package me.thuongle.googlebookssearch.ui.search
 
 
 import android.support.test.InstrumentationRegistry
+import android.support.test.InstrumentationRegistry.getInstrumentation
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.NoActivityResumedException
-import android.support.test.espresso.action.ViewActions.clearText
-import android.support.test.espresso.action.ViewActions.typeText
+import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.support.test.filters.LargeTest
 import android.support.test.rule.ActivityTestRule
 import android.support.test.runner.AndroidJUnit4
 import android.support.test.uiautomator.UiDevice
+import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
+import com.google.gson.Gson
 import me.thuongle.googlebookssearch.R
-import me.thuongle.googlebookssearch.utils.hasItemCount
+import me.thuongle.googlebookssearch.api.BookService
+import me.thuongle.googlebookssearch.api.BookServiceImpl
+import me.thuongle.googlebookssearch.api.GoogleBook
+import me.thuongle.googlebookssearch.api.GoogleVolumeResponse
+import me.thuongle.googlebookssearch.model.MutableLiveResult
+import me.thuongle.googlebookssearch.model.Result
+import me.thuongle.googlebookssearch.repository.BookRepository
+import me.thuongle.googlebookssearch.util.*
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
 import org.junit.Assert.fail
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -30,6 +42,19 @@ class SearchActivityTest {
     @Rule
     @JvmField
     var activityTestRule = ActivityTestRule(SearchActivity::class.java)
+    private lateinit var viewModel: SearchViewModel
+    private val searchResults = MutableLiveResult<List<GoogleBook>>()
+
+    @Before
+    fun init() {
+        viewModel = mock()
+        val mockRepo = mock<BookRepository>()
+        `when`(mockRepo.getService()).thenReturn(BookServiceImpl.create(BookService.NetworkExecutorType.LEGACY))
+        `when`(viewModel.repository).thenReturn(mockRepo)
+        `when`(viewModel.searchResult).thenReturn(searchResults)
+
+        activityTestRule.activity.setViewModel(viewModel)
+    }
 
     @Test
     fun onPressDeviceBack_CloseApp() {
@@ -83,6 +108,133 @@ class SearchActivityTest {
         )
     }
 
+    @Test
+    fun performSearchByPressImeActionButton() {
+        onView(withId(R.id.ed_query)).perform(
+            typeText("foo"),
+            pressImeActionButton()
+        )
+        verify(viewModel).searchBooks("foo")
+    }
+
+    @Test
+    fun performSearchByPressEnterButton() {
+        onView(withId(R.id.ed_query)).perform(
+            typeText("foo"),
+            pressKey(KeyEvent.KEYCODE_ENTER)
+        )
+        verify(viewModel).searchBooks("foo")
+    }
+
+    @Test
+    fun performSearchByPressSearchButton() {
+        onView(withId(R.id.ed_query)).perform(typeText("foo"))
+        onView(withId(R.id.btn_search)).perform(click())
+        verify(viewModel).searchBooks("foo")
+    }
+
+    @Test
+    fun performSearch_DisplayProgressBarAndNetworkHint() {
+        onView(withId(R.id.ed_query)).perform(
+            typeText("foo"),
+            pressImeActionButton()
+        )
+        searchResults.postValue(Result.loading(null))
+        verify(viewModel).searchBooks("foo")
+        onView(withId(R.id.tv_network_hint)).check(
+            matches(
+                allOf(
+                    isDisplayed(),
+                    withText(
+                        getString(
+                            R.string.executed_network_type_hint,
+                            BookService.NetworkExecutorType.LEGACY.toString()
+                        )
+                    )
+                )
+            )
+        )
+        onView(withId(R.id.progress_bar)).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun performSearch_DisplayError() {
+        onView(withId(R.id.ed_query)).perform(
+            typeText("foo"),
+            pressImeActionButton()
+        )
+        searchResults.postValue(Result.error("404:Error", null))
+        verify(viewModel).searchBooks("foo")
+        onView(withId(R.id.btn_retry)).check(matches(isDisplayed()))
+        onView(withId(R.id.tv_error_message)).check(
+            matches(
+                allOf(
+                    isDisplayed(),
+                    withText("404:Error")
+                )
+            )
+        )
+    }
+
+    @Test
+    fun performSearch_DisplayEmptyResult() {
+        onView(withId(R.id.ed_query)).perform(
+            typeText("foo"),
+            pressImeActionButton()
+        )
+        searchResults.postValue(Result.success(null))
+        verify(viewModel).searchBooks("foo")
+        onView(withId(R.id.tv_loading_hint)).check(
+            matches(
+                allOf(
+                    isDisplayed(),
+                    withText(getString(R.string.empty_search_result, "foo"))
+                )
+            )
+        )
+    }
+
+    @Test
+    fun performSearch_DisplayResult() {
+        onView(withId(R.id.ed_query)).perform(
+            typeText("foo"),
+            pressImeActionButton()
+        )
+        searchResults.postValue(
+            Result.success(
+                Gson().fromJson(
+                    getStringFromFile(getInstrumentation().context, "volumes_q=Android.json"),
+                    GoogleVolumeResponse::class.java
+                ).items
+            )
+        )
+        verify(viewModel).searchBooks("foo")
+        val rvBookList = withId(R.id.rv_book_list)
+        onView(rvBookList).check(matches(hasItemCount(5)))
+        onView(RecyclerViewMatcher(R.id.rv_book_list).atPosition(0))
+            .check(
+                matches(
+                    allOf(
+                        hasDescendant(withText("GUI Design for Android Apps")),
+                        hasDescendant(withText("Ryan Cohen, Tao Wang"))
+                    )
+                )
+            )
+    }
+
+    @Test
+    fun retryRequest() {
+        onView(withId(R.id.ed_query)).perform(
+            typeText("foo"),
+            pressImeActionButton()
+        )
+        searchResults.postValue(Result.error("404:Error", null))
+        verify(viewModel).searchBooks("foo")
+        onView(withId(R.id.btn_retry)).check(matches(isDisplayed()))
+        onView(withId(R.id.btn_retry)).perform(click())
+        verify(viewModel).searchBooks("foo")
+    }
+
     private fun testDefaultViewState() {
         onView(withId(R.id.ed_query)).check(
             matches(
@@ -111,27 +263,10 @@ class SearchActivityTest {
                 )
             )
         )
-        onView(withId(R.id.progress_bar)).check(
-            matches(
-                not(
-                    isDisplayed()
-                )
-            )
-        )
-        onView(withId(R.id.btn_retry)).check(
-            matches(
-                not(
-                    isDisplayed()
-                )
-            )
-        )
-        onView(withId(R.id.tv_error_message)).check(
-            matches(
-                not(
-                    isDisplayed()
-                )
-            )
-        )
+        onView(withId(R.id.progress_bar)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.tv_network_hint)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.btn_retry)).check(matches(not(isDisplayed())))
+        onView(withId(R.id.tv_error_message)).check(matches(not(isDisplayed())))
         onView(withId(R.id.rv_book_list)).check(
             matches(
                 allOf(

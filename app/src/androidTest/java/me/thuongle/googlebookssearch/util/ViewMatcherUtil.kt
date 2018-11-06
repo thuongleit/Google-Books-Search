@@ -1,4 +1,4 @@
-package me.thuongle.googlebookssearch.utils
+package me.thuongle.googlebookssearch.util
 
 import android.support.test.espresso.matcher.BoundedMatcher
 import android.support.v7.widget.RecyclerView
@@ -19,13 +19,13 @@ fun hasItemCount(itemCount: Int): Matcher<View> {
 
         override fun matchesSafely(view: RecyclerView): Boolean {
             return if (view.adapter == null) {
-                 itemCount == 0
+                itemCount == 0
             } else return view.adapter!!.itemCount == itemCount
         }
     }
 }
 
-private fun childAtPosition(
+fun childAtPosition(
     parentMatcher: Matcher<View>, position: Int
 ): Matcher<View> {
 

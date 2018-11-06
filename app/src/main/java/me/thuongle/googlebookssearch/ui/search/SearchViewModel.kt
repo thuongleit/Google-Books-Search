@@ -7,9 +7,11 @@ import me.thuongle.googlebookssearch.api.GoogleBook
 import me.thuongle.googlebookssearch.model.AbsentLiveData
 import me.thuongle.googlebookssearch.model.LiveResult
 import me.thuongle.googlebookssearch.repository.BookRepository
+import me.thuongle.googlebookssearch.testing.OpenForTesting
 import me.thuongle.googlebookssearch.util.switchMap
 import java.util.*
 
+@OpenForTesting
 class SearchViewModel(val repository: BookRepository) : ViewModel() {
     private val query = MutableLiveData<String>()
 

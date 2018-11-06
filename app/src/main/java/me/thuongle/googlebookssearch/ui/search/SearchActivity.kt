@@ -4,6 +4,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.annotation.VisibleForTesting
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
@@ -20,6 +21,7 @@ import me.thuongle.googlebookssearch.api.BookService
 import me.thuongle.googlebookssearch.api.BookServiceImpl
 import me.thuongle.googlebookssearch.databinding.ActivitySearchBinding
 import me.thuongle.googlebookssearch.repository.BookRepository
+import me.thuongle.googlebookssearch.testing.OpenForTesting
 import me.thuongle.googlebookssearch.ui.common.BookListAdapter
 import me.thuongle.googlebookssearch.ui.common.Callback
 import me.thuongle.googlebookssearch.util.AppExecutors
@@ -27,6 +29,7 @@ import me.thuongle.googlebookssearch.util.dismissKeyboard
 import me.thuongle.googlebookssearch.util.isConnected
 import java.io.IOException
 
+@OpenForTesting
 class SearchActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySearchBinding
@@ -38,9 +41,7 @@ class SearchActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
         val bookService = BookServiceImpl.create(BuildConfig.NETWORK_EXECUTOR_TYPE)
-        val viewModelFactory = ViewModelFactory(BookRepository.getInstance(bookService, AppExecutors.create()))
-        searchViewModel = ViewModelProviders.of(this, viewModelFactory)
-            .get(SearchViewModel::class.java)
+        searchViewModel = getViewModel(bookService)
 
         initViews()
         initViewModel()
@@ -54,7 +55,8 @@ class SearchActivity : AppCompatActivity() {
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         menu?.findItem(R.id.swap_service)?.let { swapMenu ->
             val currentNetworkType = searchViewModel.repository.getService().getType()
-            swapMenu.title = getString(R.string.swap_service_hint, BookService.NetworkExecutorType.swap(currentNetworkType))
+            swapMenu.title =
+                    getString(R.string.swap_service_hint, BookService.NetworkExecutorType.swap(currentNetworkType))
         }
         return true
     }
@@ -74,6 +76,18 @@ class SearchActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    private fun getViewModel(bookService: BookServiceImpl): SearchViewModel {
+        val viewModelFactory = ViewModelFactory(BookRepository.getInstance(bookService, AppExecutors.create()))
+        return ViewModelProviders.of(this, viewModelFactory)
+            .get(SearchViewModel::class.java)
+    }
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    fun setViewModel(viewModel: SearchViewModel) {
+        searchViewModel = viewModel
+        initViewModel()
     }
 
     private fun initViews() {

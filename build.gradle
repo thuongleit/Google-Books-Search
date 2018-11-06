@@ -7,7 +7,9 @@ buildscript {
             'supportLibrary'    : '28.0.0',
             'okhttp'            : '3.11.0',
             'retrofit'          : '2.4.0',
-            'lifecycle'         : '1.1.1'
+            'lifecycle'         : '1.1.1',
+            'mockito'           : '2.22.0',
+            'espresso'          : '3.0.2'
     ]
 
     repositories {
