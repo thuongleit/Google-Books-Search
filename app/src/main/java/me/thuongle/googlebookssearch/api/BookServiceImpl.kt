@@ -48,7 +48,7 @@ class BookServiceImpl private constructor(val networkExecutorType: BookService.N
     fun getService(): Any {
         return when (networkExecutorType) {
             BookService.NetworkExecutorType.RETROFIT -> GoogleBooksRetrofitService.create()
-            BookService.NetworkExecutorType.LEGACY -> GoogleBooksLegacyService.create()
+            BookService.NetworkExecutorType.LEGACY -> GoogleBooksLegacyService.create(RestClient())
         }
     }
 
