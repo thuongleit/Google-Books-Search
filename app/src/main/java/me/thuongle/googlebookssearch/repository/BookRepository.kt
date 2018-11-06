@@ -3,10 +3,12 @@ package me.thuongle.googlebookssearch.repository
 import me.thuongle.googlebookssearch.api.BookService
 import me.thuongle.googlebookssearch.api.GoogleBook
 import me.thuongle.googlebookssearch.model.LiveResult
+import me.thuongle.googlebookssearch.testing.OpenForTesting
 import me.thuongle.googlebookssearch.util.AppExecutors
 import timber.log.Timber
 
-class BookRepository private constructor(
+@OpenForTesting
+class BookRepository(
     private var service: BookService,
     val appExecutors: AppExecutors
 ) {

@@ -1,12 +1,14 @@
 package me.thuongle.googlebookssearch.api
 
+import me.thuongle.googlebookssearch.util.mock
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
-import org.mockito.Mockito.*
+import org.mockito.Mockito.`when`
+import org.mockito.Mockito.verify
 import retrofit2.Call
 import retrofit2.Response
 
@@ -14,8 +16,8 @@ import retrofit2.Response
 class BookServiceTest {
 
     private lateinit var service: BookService
-    private var mockRetrofitService = mock(GoogleBooksRetrofitService::class.java)
-    private var mockLegacyService = mock(GoogleBooksLegacyService::class.java)
+    private var mockRetrofitService = mock<GoogleBooksRetrofitService>()
+    private var mockLegacyService = mock<GoogleBooksLegacyService>()
 
     @Test
     fun `search books by query with legacy service`() {
@@ -31,7 +33,7 @@ class BookServiceTest {
         service = object : BookServiceImpl(BookService.NetworkExecutorType.RETROFIT) {
             override fun getService() = mockRetrofitService
         }
-        val mockCall = mock(Call::class.java) as Call<GoogleVolumeResponse>
+        val mockCall = mock<Call<GoogleVolumeResponse>>()
         val response = Response.success(GoogleVolumeResponse.createEmpty())
         `when`(
             mockRetrofitService.searchBooks(
@@ -59,7 +61,7 @@ class BookServiceTest {
         service = object : BookServiceImpl(BookService.NetworkExecutorType.RETROFIT) {
             override fun getService() = mockRetrofitService
         }
-        val mockCall = mock(Call::class.java) as Call<GoogleVolumeResponse>
+        val mockCall = mock<Call<GoogleVolumeResponse>>()
         val response = Response.success(GoogleVolumeResponse.createEmpty())
         `when`(mockRetrofitService.searchBooksWithUrl("/")).thenReturn(mockCall)
         `when`(mockCall.execute()).thenReturn(response)

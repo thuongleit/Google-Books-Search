@@ -66,6 +66,8 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     testImplementation "com.squareup.okhttp3:mockwebserver:${versions.okhttp}"
     testImplementation "org.mockito:mockito-core:2.22.0"
+    testImplementation "android.arch.core:core-testing:${versions.lifecycle}"
+    testImplementation "org.robolectric:robolectric:4.0.1"
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
