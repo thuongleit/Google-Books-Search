@@ -20,7 +20,7 @@ interface GoogleBooksRetrofitService {
     ): Call<GoogleVolumeResponse>
 
     @GET
-    fun searchBooks(@Url url: String): Call<GoogleVolumeResponse>
+    fun searchBooksWithUrl(@Url url: String): Call<GoogleVolumeResponse>
 
     companion object {
         fun create(): GoogleBooksRetrofitService {

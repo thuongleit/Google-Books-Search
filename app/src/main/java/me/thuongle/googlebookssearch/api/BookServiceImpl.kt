@@ -1,11 +1,13 @@
 package me.thuongle.googlebookssearch.api
 
 import android.support.annotation.WorkerThread
+import me.thuongle.googlebookssearch.testing.OpenForTesting
 import retrofit2.Response
 import java.io.IOException
 import java.net.UnknownServiceException
 
-class BookServiceImpl private constructor(val networkExecutorType: BookService.NetworkExecutorType) : BookService {
+@OpenForTesting
+class BookServiceImpl(val networkExecutorType: BookService.NetworkExecutorType) : BookService {
 
     @WorkerThread
     @Throws(Exception::class)
@@ -31,7 +33,7 @@ class BookServiceImpl private constructor(val networkExecutorType: BookService.N
             when (service) {
                 is GoogleBooksRetrofitService -> {
                     service
-                        .searchBooks(url)
+                        .searchBooksWithUrl(url)
                         .execute()
                         .handleResponse() ?: GoogleVolumeResponse.createEmpty()
                 }

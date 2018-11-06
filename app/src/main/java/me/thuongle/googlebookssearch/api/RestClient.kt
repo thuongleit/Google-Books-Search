@@ -58,7 +58,7 @@ open class RestClient {
         Timber.d("Connection is open.")
 
         connection.requestMethod = requestMethod
-        if (requestMethod == POST) {
+        if (requestMethod != GET) {
             connection.doOutput = true
         }
         Timber.d("Writing execute parameters: ${connection.requestProperties}")

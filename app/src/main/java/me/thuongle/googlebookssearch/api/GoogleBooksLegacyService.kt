@@ -2,11 +2,13 @@ package me.thuongle.googlebookssearch.api
 
 import android.support.annotation.WorkerThread
 import com.google.gson.Gson
+import me.thuongle.googlebookssearch.testing.OpenForTesting
 import me.thuongle.googlebookssearch.util.toUrlEncodeUTF8
 
 /**
  * REST API access points for Google Books API using HttpURLConnection
  */
+@OpenForTesting
 class GoogleBooksLegacyService(val client: RestClient) : BookService {
 
     @WorkerThread

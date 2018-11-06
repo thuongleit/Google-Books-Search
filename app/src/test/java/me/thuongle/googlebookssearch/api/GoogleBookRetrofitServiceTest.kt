@@ -58,7 +58,7 @@ class GoogleBookRetrofitServiceTest {
     @Test
     fun `search books by url, return 200 OK`() {
         enqueueResponse("books_search.json")
-        val response = service.searchBooks(url = "/volumes?q=book").execute()
+        val response = service.searchBooksWithUrl(url = "/volumes?q=book").execute()
 
         //test request
         val request = server.takeRequest()
@@ -95,7 +95,7 @@ class GoogleBookRetrofitServiceTest {
             .let {
                 server.enqueue(it)
             }
-        service.searchBooks(url = "/").enqueue(object : Callback<GoogleVolumeResponse?> {
+        service.searchBooksWithUrl(url = "/").enqueue(object : Callback<GoogleVolumeResponse?> {
             override fun onFailure(call: Call<GoogleVolumeResponse?>, t: Throwable) {
                 assertThat(call.isExecuted, `is`(true))
                 assertTrue(t is IOException)
