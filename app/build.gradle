@@ -2,6 +2,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-allopen'
+
+allOpen {
+    // allows mocking for classes w/o directly opening them for release builds
+    annotation 'me.thuongle.googlebookssearch.testing.OpenClass'
+}
 
 android {
     def networkExecutorType = "me.thuongle.googlebookssearch.api.BookService.NetworkExecutorType.RETROFIT"
@@ -59,6 +65,7 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
     testImplementation "com.squareup.okhttp3:mockwebserver:${versions.okhttp}"
+    testImplementation "org.mockito:mockito-core:2.22.0"
 
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test:rules:1.0.2'
