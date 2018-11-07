@@ -149,6 +149,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(Result.loading(null))
         verify(viewModel).searchBooks("foo")
         onView(withId(R.id.tv_network_hint)).check(
@@ -173,6 +174,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(Result.error("404:Error", null))
         verify(viewModel).searchBooks("foo")
         onView(withId(R.id.btn_retry)).check(matches(isDisplayed()))
@@ -192,6 +194,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(Result.success(null))
         verify(viewModel).searchBooks("foo")
         onView(withId(R.id.tv_loading_hint)).check(
@@ -210,6 +213,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(
             Result.success(
                 Gson().fromJson(
@@ -238,6 +242,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(Result.error("404:Error", null))
         verify(viewModel).searchBooks("foo")
         onView(withId(R.id.btn_retry)).check(matches(isDisplayed()))
