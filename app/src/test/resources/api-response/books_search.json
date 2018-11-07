@@ -1,0 +1,164 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 512,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "id_1",
+      "etag": "etag_1",
+      "selfLink": "selfLink_1",
+      "volumeInfo": {
+        "title": "title_1",
+        "subtitle": "subtitle_1",
+        "authors": [
+          "author_1",
+          "author_2"
+        ],
+        "publisher": "publisher_1",
+        "publishedDate": "2000",
+        "description": "description_1",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "157356107X"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9781573561075"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 682,
+        "printType": "BOOK",
+        "categories": [
+          "Computers",
+          "Books"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "1.1.0.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "smallThumbnail_1",
+          "thumbnail": "thumbnail_1",
+          "small": "small_1",
+          "medium": "medium_1",
+          "large": "large_1",
+          "extraLarge": "extraLarge_1"
+        },
+        "language": "en",
+        "previewLink": "previewLink_1",
+        "infoLink": "infoLink_1",
+        "canonicalVolumeLink": "canonicalVolumeLink_1"
+      },
+      "saleInfo": {
+        "country": "FI",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FI",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/The_Contemporary_Thesaurus_of_Search_Ter-sample-pdf.acsm?id=zYw3sYFtz9kC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=zYw3sYFtz9kC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "In computer \u003cb\u003esearching\u003c/b\u003e, they may need to be specified. The searcher needs to be \u003cbr\u003e\naware of the context from which the \u003cb\u003esearch\u003c/b\u003e request is derived as well as the \u003cbr\u003e\ncontext in which the \u003cb\u003eterms\u003c/b\u003e will be searched. The broadest and most obvious \u003cbr\u003e\n\u003cb\u003esearch\u003c/b\u003e&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "id_2",
+      "etag": "etag_2",
+      "selfLink": "selfLink_2",
+      "volumeInfo": {
+        "title": "title_2",
+        "subtitle": "subtitle_2",
+        "authors": [
+          "author_1",
+          "author_2"
+        ],
+        "publisher": "publisher_2",
+        "publishedDate": "2000",
+        "description": "description_2",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_10",
+            "identifier": "157356107X"
+          },
+          {
+            "type": "ISBN_13",
+            "identifier": "9781573561075"
+          }
+        ],
+        "readingModes": {
+          "text": false,
+          "image": true
+        },
+        "pageCount": 682,
+        "printType": "BOOK",
+        "categories": [
+          "Computers",
+          "Books"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": false,
+        "contentVersion": "1.1.0.0.preview.1",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "imageLinks_smallThumbnail_2",
+          "thumbnail": "imageLinks_thumbnail_2"
+        },
+        "language": "en",
+        "previewLink": "previewLink_2",
+        "infoLink": "infoLink_2",
+        "canonicalVolumeLink": "canonicalVolumeLink_2"
+      },
+      "saleInfo": {
+        "country": "FI",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FI",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/The_Contemporary_Thesaurus_of_Search_Ter-sample-pdf.acsm?id=zYw3sYFtz9kC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=zYw3sYFtz9kC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "In computer \u003cb\u003esearching\u003c/b\u003e, they may need to be specified. The searcher needs to be \u003cbr\u003e\naware of the context from which the \u003cb\u003esearch\u003c/b\u003e request is derived as well as the \u003cbr\u003e\ncontext in which the \u003cb\u003eterms\u003c/b\u003e will be searched. The broadest and most obvious \u003cbr\u003e\n\u003cb\u003esearch\u003c/b\u003e&nbsp;..."
+      }
+    }
+  ]
+}

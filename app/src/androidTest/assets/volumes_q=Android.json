@@ -1,0 +1,414 @@
+{
+  "kind": "books#volumes",
+  "totalItems": 380,
+  "items": [
+    {
+      "kind": "books#volume",
+      "id": "elwnCgAAQBAJ",
+      "etag": "mKcTmkFOv1E",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/elwnCgAAQBAJ",
+      "volumeInfo": {
+        "title": "GUI Design for Android Apps",
+        "authors": [
+          "Ryan Cohen",
+          "Tao Wang"
+        ],
+        "publisher": "Apress",
+        "publishedDate": "2014-08-28",
+        "description": "GUI Design for Android Apps is the perfect—and concise—introduction for mobile app developers and designers. Through easy-to-follow tutorials, code samples, and case studies, the book shows the must-know principles for user-interface design for Android apps running on the Intel platform, including smartphones, tablets and embedded devices. This book is jointly developed for individual learning by Intel Software College and China Shanghai JiaoTong University, and is excerpted from Android Application Development for the Intel® Platform.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781484203828"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1484203828"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 156,
+        "printType": "BOOK",
+        "categories": [
+          "Computers"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "0.2.3.0.preview.3",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=elwnCgAAQBAJ&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=elwnCgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.fi/books?id=elwnCgAAQBAJ&printsec=frontcover&dq=Android&hl=&cd=3&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=elwnCgAAQBAJ&source=gbs_api",
+        "canonicalVolumeLink": "https://market.android.com/details?id=book-elwnCgAAQBAJ"
+      },
+      "saleInfo": {
+        "country": "FI",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+          "amount": 0.0,
+          "currencyCode": "EUR"
+        },
+        "retailPrice": {
+          "amount": 0.0,
+          "currencyCode": "EUR"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=elwnCgAAQBAJ&rdid=book-elwnCgAAQBAJ&rdot=1&source=gbs_api"
+      },
+      "accessInfo": {
+        "country": "FI",
+        "viewability": "ALL_PAGES",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/GUI_Design_for_Android_Apps-sample-epub.acsm?id=elwnCgAAQBAJ&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/GUI_Design_for_Android_Apps-sample-pdf.acsm?id=elwnCgAAQBAJ&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=elwnCgAAQBAJ&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "This book is jointly developed for individual learning by Intel Software College and China Shanghai JiaoTong University, and is excerpted from Android Application Development for the Intel® Platform."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "xr6-92Kt8zAC",
+      "etag": "J9AFfT4mMWw",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/xr6-92Kt8zAC",
+      "volumeInfo": {
+        "title": "Android Phones For Dummies",
+        "authors": [
+          "Dan Gookin"
+        ],
+        "publisher": "John Wiley & Sons",
+        "publishedDate": "2012-03-09",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781118232446"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1118232445"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 352,
+        "printType": "BOOK",
+        "categories": [
+          "Computers"
+        ],
+        "averageRating": 3.5,
+        "ratingsCount": 4,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "2.9.5.0.preview.3",
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=xr6-92Kt8zAC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=xr6-92Kt8zAC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.fi/books?id=xr6-92Kt8zAC&printsec=frontcover&dq=Android&hl=&cd=4&source=gbs_api",
+        "infoLink": "http://books.google.fi/books?id=xr6-92Kt8zAC&dq=Android&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Android_Phones_For_Dummies.html?hl=&id=xr6-92Kt8zAC"
+      },
+      "saleInfo": {
+        "country": "FI",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FI",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/Android_Phones_For_Dummies-sample-epub.acsm?id=xr6-92Kt8zAC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/Android_Phones_For_Dummies-sample-pdf.acsm?id=xr6-92Kt8zAC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=xr6-92Kt8zAC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Then this is the book you need! Written in the typical fun and friendly For Dummies style, this full-color guide covers the basics of all the features of Android phones without weighing you down with heavy technical terms or jargon."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "2XeNswkT_2YC",
+      "etag": "w3DFOPo5kT8",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/2XeNswkT_2YC",
+      "volumeInfo": {
+        "title": "Beginning Android 2",
+        "authors": [
+          "Mark Murphy"
+        ],
+        "publisher": "Apress",
+        "publishedDate": "2010-03-19",
+        "description": "The Android development platform, created by Google and the Open Handset Alliance, is a platform in its truest sense, encompassing hundreds of classes beyond the traditional Java classes and open source components that ship with the SDK. With Beginning Android 2, you’ll learn how to develop applications for Android 2.x mobile devices, using simple examples that are ready to run with your copy of the software development kit. Author, Android columnist, writer, developer, and community advocate Mark L. Murphy will show you what you need to know to get started programming Android applications, including how to craft graphical user interfaces, use GPS, and access web services. What you’ll learn Discover Android and how to use it to build Java-based mobile applications for a wide range of phones and other devices. Create user interfaces using both the Android widget framework and the built-in WebKit-powered Web browser components. Utilize the distinctive capabilities of the Android engine, including location tracking, maps, and Internet access. Use and create Android applications incorporating activities, services, content providers, and broadcast receivers. Support Android 1.5, 1.6, and 2.0 devices, including dealing with multiple Android OS versions, multiple screen sizes, and other device-specific characteristics. Who this book is for This book is aimed at people new to mobile development, but with some knowledge of Java. Table of Contents The Big Picture Projects & Targets Creating a Skeleton Application Using XML-Based Layouts Employing Basic Widgets Working with Containers Using Selection Widgets Getting Fancy With Lists Employing Fancy Widgets and Containers The Input Method Framework Applying Menus Fonts Embedding the WebKit Browser Showing Pop-Up Messages Dealing with Threads Handling Activity Lifecycle Events Creating Intent Filters Launching Activities and Sub-Activities Handling Rotation Working with Resources Using Preferences Managing and Accessing Local Databases Accessing Files Leveraging Java Libraries Communicating via the Internet Using a Content Provider Building a Content Provider Requesting and Requiring Permissions Creating a Service Invoking a Service Alerting Users Via Notifications Accessing Location-Based Services Mapping with MapView and MapActivity Handling Telephone Calls Development Tools Handling Multiple Screen Sizes Dealing with Devices Handling Platform Changes Where Do We Go From Here?",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781430226291"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1430226293"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 416,
+        "printType": "BOOK",
+        "categories": [
+          "Computers"
+        ],
+        "averageRating": 2.0,
+        "ratingsCount": 2,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "1.3.3.0.preview.3",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=2XeNswkT_2YC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=2XeNswkT_2YC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.fi/books?id=2XeNswkT_2YC&pg=PA180&dq=Android&hl=&cd=5&source=gbs_api",
+        "infoLink": "http://books.google.fi/books?id=2XeNswkT_2YC&dq=Android&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Beginning_Android_2.html?hl=&id=2XeNswkT_2YC"
+      },
+      "saleInfo": {
+        "country": "FI",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FI",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/Beginning_Android_2-sample-epub.acsm?id=2XeNswkT_2YC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/Beginning_Android_2-sample-pdf.acsm?id=2XeNswkT_2YC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=2XeNswkT_2YC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "\u003cb\u003eandroid\u003c/b\u003e :layout_weight=&quot;l&quot; /&gt; &lt;EditText \u003cb\u003eandroid\u003c/b\u003e :id=&quot;@+id/lon&quot; \u003cb\u003eandroid\u003c/b\u003e : \u003cbr\u003e\nlayout_width=&quot;f ill_parent &quot; \u003cb\u003eandroid\u003c/b\u003e : layout_height=&quot;wrap_content&quot; \u003cb\u003eandroid\u003c/b\u003e :\u003cbr\u003e\ncursorVisible= &quot;true&quot; \u003cb\u003eandroid\u003c/b\u003e :editable=&quot;true&quot; \u003cb\u003eandroid\u003c/b\u003e : singlel_ine=&quot;true&quot; \u003cb\u003eandroid\u003c/b\u003e\u003cbr\u003e\n&nbsp;..."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "TwV45aVC14IC",
+      "etag": "m0QsGsxCkSU",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/TwV45aVC14IC",
+      "volumeInfo": {
+        "title": "Android Programming Unleashed",
+        "authors": [
+          "B.M. Harwani"
+        ],
+        "publisher": "Sams Publishing",
+        "publishedDate": "2012-12-14",
+        "description": "Android Programming Unleashed is the most comprehensive and technically sophisticated guide to best-practice Android development with today's powerful new versions of Android: 4.1 (Jelly Bean) and 4.0.3 (Ice Cream Sandwich). Offering the exceptional breadth and depth developers have come to expect from the Unleashed series, it covers everything programmers need to know to develop robust, high-performance Android apps that deliver a superior user experience. Leading developer trainer Bintu Harwani begins with basic UI controls, then progresses to more advanced topics, finally covering how to develop feature rich Android applications that can access Internet-based services and store data. He illuminates each important SDK component through complete, self-contained code examples that show developers the most effective ways to build production-ready code. Coverage includes: understanding the modern Android platform from the developer's standpoint… using widgets, containers, resources, selection widgets, dialogs, and fragments… supporting actions and persistence… incorporating menus, ActionBars, content providers, and databases… integrating media and animations… using web, map, and other services… supporting communication via messaging, contacts, and emails… publishing Android apps, and much more.",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9780133151749"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "0133151743"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 696,
+        "printType": "BOOK",
+        "categories": [
+          "Computers"
+        ],
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "1.5.5.0.preview.3",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=TwV45aVC14IC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=TwV45aVC14IC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.fi/books?id=TwV45aVC14IC&printsec=frontcover&dq=Android&hl=&cd=6&source=gbs_api",
+        "infoLink": "https://play.google.com/store/books/details?id=TwV45aVC14IC&source=gbs_api",
+        "canonicalVolumeLink": "https://market.android.com/details?id=book-TwV45aVC14IC"
+      },
+      "saleInfo": {
+        "country": "FI",
+        "saleability": "FOR_SALE",
+        "isEbook": true,
+        "listPrice": {
+          "amount": 28.51,
+          "currencyCode": "EUR"
+        },
+        "retailPrice": {
+          "amount": 19.96,
+          "currencyCode": "EUR"
+        },
+        "buyLink": "https://play.google.com/store/books/details?id=TwV45aVC14IC&rdid=book-TwV45aVC14IC&rdot=1&source=gbs_api",
+        "offers": [
+          {
+            "finskyOfferType": 1,
+            "listPrice": {
+              "amountInMicros": 2.851E7,
+              "currencyCode": "EUR"
+            },
+            "retailPrice": {
+              "amountInMicros": 1.996E7,
+              "currencyCode": "EUR"
+            }
+          }
+        ]
+      },
+      "accessInfo": {
+        "country": "FI",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED_FOR_ACCESSIBILITY",
+        "epub": {
+          "isAvailable": false
+        },
+        "pdf": {
+          "isAvailable": false
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=TwV45aVC14IC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "Offering the exceptional breadth and depth developers have come to expect from the Unleashed series, it covers everything programmers need to know to develop robust, high-performance Android apps that deliver a superior user experience."
+      }
+    },
+    {
+      "kind": "books#volume",
+      "id": "Bam8K5SIiTkC",
+      "etag": "bFF+l06Z2fI",
+      "selfLink": "https://www.googleapis.com/books/v1/volumes/Bam8K5SIiTkC",
+      "volumeInfo": {
+        "title": "Pro Android 2",
+        "authors": [
+          "Sayed Hashimi",
+          "Satya Komatineni",
+          "Dave MacLean"
+        ],
+        "publisher": "Apress",
+        "publishedDate": "2010-03-15",
+        "description": "Pro Android 2 shows how to build real-world and fun mobile applications using Google’s latest Android software development kit. This new edition is updated for Android 2, covering everything from the fundamentals of building applications for embedded devices to advanced concepts such as custom 3D components, OpenGL, and touchscreens including gestures. While other Android development guides simply discuss topics, Pro Android 2 offers the combination of expert insight and real sample applications that work. Discover the design and architecture of the Android SDK through practical examples, and how to build mobile applications using the Android SDK. Explore and use the Android APIs, including those for media and Wi-Fi. Learn about Android 2’s integrated local and web search, handwriting gesture UI, Google Translate, and text-to-speech features. Pro Android 2 dives deep, providing you with all the knowledge and techniques you need to build mobile applications ranging from games to Google apps, including add-ons to Google Docs. You’ll be able to extend and run the new Google Chrome APIs on the G1, the G2, and other next-generation Google phones and Android-enabled devices. What you’ll learn How to use Android to build Java-based mobile applications for Google phones with a touch screen or keyboard (thanks to Cupcake’s inclusion as of Android 1.5) How to design and architect using Google’s latest Android SDK How to use the Android SDK to write mobile applications for embedded devices How to create 3D graphics with OpenGL and custom components How to build multimedia and game apps using Android’s Media APIs and OpenGL How to use Android’s location-based services, networking (Wi-Fi APIs), and security How to create and allow for more integrated local and web searches How to build handwriting gesture UIs How to incorporate Google Translate into your Android applications Who this book is for This book is for professional software engineers/programmers looking to move their ideas and applications into the mobile space with Android. It assumes that readers have a passable understanding of Java, including being able to write classes and handle basic inheritance structures. This book also targets hobbyists. Table of Contents Introducing the Android Computing Platform Getting Your Feet Wet Using Resources, Content Providers, and Intents Building User Interfaces and Using Controls Working with Menus and Dialogs Unveiling 2D Animation Exploring Security and Location-Based Services Building and Consuming Services Using the Media Framework and Telephony APIs Programming 3D Graphics with OpenGL Managing and Organizing Preferences Exploring Live Folders Home Screen Widgets Android Search Exploring Text to Speech and Translate APIs Touchscreens Titanium Mobile: A WebKit-Based Approach to Android Development Working with Android Market Outlook and Resources",
+        "industryIdentifiers": [
+          {
+            "type": "ISBN_13",
+            "identifier": "9781430226598"
+          },
+          {
+            "type": "ISBN_10",
+            "identifier": "1430226595"
+          }
+        ],
+        "readingModes": {
+          "text": true,
+          "image": true
+        },
+        "pageCount": 736,
+        "printType": "BOOK",
+        "categories": [
+          "Computers"
+        ],
+        "averageRating": 2.5,
+        "ratingsCount": 6,
+        "maturityRating": "NOT_MATURE",
+        "allowAnonLogging": true,
+        "contentVersion": "0.2.1.0.preview.3",
+        "panelizationSummary": {
+          "containsEpubBubbles": false,
+          "containsImageBubbles": false
+        },
+        "imageLinks": {
+          "smallThumbnail": "http://books.google.com/books/content?id=Bam8K5SIiTkC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+          "thumbnail": "http://books.google.com/books/content?id=Bam8K5SIiTkC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+        },
+        "language": "en",
+        "previewLink": "http://books.google.fi/books?id=Bam8K5SIiTkC&pg=PA217&dq=Android&hl=&cd=7&source=gbs_api",
+        "infoLink": "http://books.google.fi/books?id=Bam8K5SIiTkC&dq=Android&hl=&source=gbs_api",
+        "canonicalVolumeLink": "https://books.google.com/books/about/Pro_Android_2.html?hl=&id=Bam8K5SIiTkC"
+      },
+      "saleInfo": {
+        "country": "FI",
+        "saleability": "NOT_FOR_SALE",
+        "isEbook": false
+      },
+      "accessInfo": {
+        "country": "FI",
+        "viewability": "PARTIAL",
+        "embeddable": true,
+        "publicDomain": false,
+        "textToSpeechPermission": "ALLOWED",
+        "epub": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/Pro_Android_2-sample-epub.acsm?id=Bam8K5SIiTkC&format=epub&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "pdf": {
+          "isAvailable": true,
+          "acsTokenLink": "http://books.google.fi/books/download/Pro_Android_2-sample-pdf.acsm?id=Bam8K5SIiTkC&format=pdf&output=acs4_fulfillment_token&dl_type=sample&source=gbs_api"
+        },
+        "webReaderLink": "http://play.google.com/books/reader?id=Bam8K5SIiTkC&hl=&printsec=frontcover&source=gbs_api",
+        "accessViewStatus": "SAMPLE",
+        "quoteSharingAllowed": false
+      },
+      "searchInfo": {
+        "textSnippet": "The previous chapters gave you a broad introduction to UI programming in \u003cbr\u003e\n\u003cb\u003eAndroid\u003c/b\u003e. In this chapter, we would like to further strengthen your ability to create \u003cbr\u003e\nintuitive and appealing applications on the \u003cb\u003eAndroid\u003c/b\u003e Platform by covering the \u003cbr\u003e\nanimation&nbsp;..."
+      }
+    }
+  ]
+}

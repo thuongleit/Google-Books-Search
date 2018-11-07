@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="me.thuongle.googlebookssearch.model.Result"/>
+
+        <variable
+            name="result"
+            type="Result"/>
+
+        <variable
+            name="networkType"
+            type="String"/>
+
+        <variable
+            name="customErrorMsg"
+            type="String"/>
+
+        <variable
+            name="callback"
+            type="me.thuongle.googlebookssearch.ui.common.Callback"/>
+    </data>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/default_margin"
+        app:visible="@{!result.hasData}"
+        android:orientation="vertical"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/tv_network_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{@string/executed_network_type_hint(networkType)}"
+            tools:text="Executed by Retrofit"
+            app:visible="@{result.isLoading}"/>
+
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            app:visible="@{result.isLoading}"
+            style="?android:attr/progressBarStyle"/>
+
+        <TextView
+            android:id="@+id/tv_error_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/default_margin"
+            android:text="@{customErrorMsg != null ? customErrorMsg : (result.status.message ?? @string/unknown_error)}"
+            tools:text="@string/unknown_error"
+            app:visible="@{result.isError}"/>
+
+        <Button
+            android:id="@+id/btn_retry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/retry"
+            android:onClick="@{() -> callback.invoke()}"
+            android:padding="@dimen/default_margin"
+            app:visible="@{result.isError}"/>
+    </LinearLayout>
+</layout>
+
