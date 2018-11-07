@@ -2,6 +2,7 @@ package me.thuongle.googlebookssearch.util
 
 import android.app.Activity
 import android.app.Application
+import android.databinding.ViewDataBinding
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,6 +11,8 @@ import android.support.test.rule.ActivityTestRule
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import org.junit.Assert.fail
+
 
 class DisableAnimationActivityTestRule<A : Activity>(
     activityClass: Class<A>
@@ -41,6 +44,17 @@ class DisableAnimationActivityTestRule<A : Activity>(
             override fun onActivityCreated(activity: Activity?, savedInstanceState: Bundle?) {
             }
         })
+
+        // need to disable USE_CHOREOGRAPHER when perform espresso tests with data binding
+        // see more: https://issuetracker.google.com/issues/37116383
+        try {
+            setFinalStatic(
+                ViewDataBinding::class.java.getDeclaredField("USE_CHOREOGRAPHER"), false
+            )
+        } catch (e: Exception) {
+            fail(e.message)
+        }
+
         super.beforeActivityLaunched()
     }
 }
