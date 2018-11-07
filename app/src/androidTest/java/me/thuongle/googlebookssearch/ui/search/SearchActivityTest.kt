@@ -41,6 +41,12 @@ class SearchActivityTest {
     @Rule
     @JvmField
     var activityTestRule = DisableAnimationActivityTestRule(SearchActivity::class.java)
+    @Rule
+    @JvmField
+    val executorRule = TaskExecutorWithIdlingResourceRule()
+    @Rule
+    @JvmField
+    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(activityTestRule)
     private lateinit var viewModel: SearchViewModel
     private val searchResults = MutableLiveResult<List<GoogleBook>>()
 
