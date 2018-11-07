@@ -35,8 +35,13 @@ data class GoogleBook(
     ) {
         val authors: String
             // list.toString() --> [Author-A, Author-B] --> Author-A, Author-B
-            get() = authorsList.toString().drop(1).dropLast(1)
-
+            get() {
+                return if (!authorsList.isNullOrEmpty()) {
+                    authorsList.toString().drop(1).dropLast(1)
+                } else {
+                    ""
+                }
+            }
     }
 
     data class IndustryIdentifierInfo(
