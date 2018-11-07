@@ -3,10 +3,19 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'kotlin-allopen'
+apply plugin: 'jacoco'
 
 allOpen {
     // allows mocking for classes w/o directly opening them for release builds
     annotation 'me.thuongle.googlebookssearch.testing.OpenClass'
+}
+
+jacoco {
+    toolVersion = "0.8.1"
+}
+
+tasks.withType(Test) {
+    jacoco.includeNoLocationClasses = true
 }
 
 android {
@@ -30,6 +39,10 @@ android {
     }
 
     buildTypes {
+        debug {
+            // Run code coverage reports by default on debug builds.
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
@@ -47,6 +60,12 @@ android {
 
     testOptions {
         execution 'ANDROID_TEST_ORCHESTRATOR'
+
+        animationsDisabled true
+
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 
@@ -100,4 +119,24 @@ project.tasks.whenTaskAdded {
     if (it.name == "compileReleaseUnitTestKotlin") {
         it.enabled = false
     }
+}
+
+task jacocoTestReport(type: JacocoReport, dependsOn: ['testDebugUnitTest', 'createDebugCoverageReport']) {
+
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+
+    def fileFilter = [
+            '**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*', '**/*Test*.*', 'android/**/*.*', '**/*$[0-9].*'
+    ]
+    def debugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
+    def mainSrc = "$project.projectDir/src/main/kotlin"
+
+    sourceDirectories = files([mainSrc])
+    classDirectories = files([debugTree])
+    executionData = fileTree(dir: project.buildDir, includes: [
+            'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
+    ])
 }
