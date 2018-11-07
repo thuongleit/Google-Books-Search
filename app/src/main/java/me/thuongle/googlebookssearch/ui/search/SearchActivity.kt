@@ -84,8 +84,8 @@ class SearchActivity : AppCompatActivity() {
             .get(SearchViewModel::class.java)
     }
 
-    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
-    fun setViewModel(viewModel: SearchViewModel) {
+    @VisibleForTesting
+    internal fun setViewModel(viewModel: SearchViewModel) {
         searchViewModel = viewModel
         initViewModel()
     }
