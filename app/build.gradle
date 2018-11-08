@@ -71,11 +71,22 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}"
     implementation 'com.google.code.gson:gson:2.8.5'
 
+    //dagger
+    implementation "com.google.dagger:dagger:${versions.dagger}"
+    implementation "com.google.dagger:dagger-android:${versions.dagger}"
+    implementation "com.google.dagger:dagger-android-support:${versions.dagger}"
+    kapt "com.google.dagger:dagger-compiler:${versions.dagger}"
+    kapt "com.google.dagger:dagger-android-processor:${versions.dagger}"
+
     //image tools
     implementation 'com.github.bumptech.glide:glide:4.8.0'
 
     //debug tools
     implementation 'com.jakewharton.timber:timber:4.5.1'
+
+    debugImplementation "com.squareup.okhttp3:logging-interceptor:${versions.okhttp}"
+    debugImplementation "com.facebook.stetho:stetho:${versions.stetho}"
+    debugImplementation "com.facebook.stetho:stetho-okhttp3:${versions.stetho}"
 
     testImplementation 'junit:junit:4.12'
     testImplementation "com.squareup.okhttp3:mockwebserver:${versions.okhttp}"

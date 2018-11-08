@@ -1,13 +1,17 @@
 package me.thuongle.googlebookssearch.api
 
 import android.support.annotation.WorkerThread
+import me.thuongle.googlebookssearch.BuildConfig
 import me.thuongle.googlebookssearch.testing.OpenForTesting
 import retrofit2.Response
 import java.io.IOException
 import java.net.UnknownServiceException
 
 @OpenForTesting
-class BookServiceImpl(val networkExecutorType: BookService.NetworkExecutorType) : BookService {
+class BookServiceImpl(val legacyService: GoogleBooksLegacyService,
+                      val retrofitService: GoogleBooksRetrofitService) : BookService {
+
+    var networkExecutorType: BookService.NetworkExecutorType = BuildConfig.NETWORK_EXECUTOR_TYPE
 
     @WorkerThread
     @Throws(Exception::class)
@@ -49,15 +53,13 @@ class BookServiceImpl(val networkExecutorType: BookService.NetworkExecutorType) 
 
     fun getService(): Any {
         return when (networkExecutorType) {
-            BookService.NetworkExecutorType.RETROFIT -> GoogleBooksRetrofitService.create()
-            BookService.NetworkExecutorType.LEGACY -> GoogleBooksLegacyService.create(RestClient())
+            BookService.NetworkExecutorType.RETROFIT -> retrofitService
+            BookService.NetworkExecutorType.LEGACY -> legacyService
         }
     }
 
-    companion object {
-        fun create(type: BookService.NetworkExecutorType): BookServiceImpl {
-            return BookServiceImpl(type)
-        }
+    override fun swapService(newType: BookService.NetworkExecutorType) {
+        networkExecutorType = newType
     }
 }
 

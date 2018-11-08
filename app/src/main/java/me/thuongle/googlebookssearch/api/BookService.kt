@@ -20,6 +20,8 @@ interface BookService {
 
     fun getType(): NetworkExecutorType
 
+    fun swapService(newType: BookService.NetworkExecutorType)
+
     enum class NetworkExecutorType {
         RETROFIT,
         LEGACY;

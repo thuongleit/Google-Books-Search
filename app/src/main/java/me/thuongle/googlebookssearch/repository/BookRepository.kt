@@ -6,9 +6,12 @@ import me.thuongle.googlebookssearch.model.LiveResult
 import me.thuongle.googlebookssearch.testing.OpenForTesting
 import me.thuongle.googlebookssearch.util.AppExecutors
 import timber.log.Timber
+import javax.inject.Inject
+import javax.inject.Singleton
 
 @OpenForTesting
-class BookRepository(
+@Singleton
+class BookRepository @Inject constructor(
     private var service: BookService,
     val appExecutors: AppExecutors
 ) {
@@ -37,20 +40,9 @@ class BookRepository(
         }.result
     }
 
-    fun swapService(newService: BookService){
-        service = newService
+    fun swapService(newType: BookService.NetworkExecutorType) {
+        service.swapService(newType)
     }
 
     fun getService() = service
-
-    companion object {
-        @Volatile
-        private var instance: BookRepository? = null
-
-        fun getInstance(bookService: BookService, appExecutors: AppExecutors): BookRepository {
-            return instance ?: synchronized(this) {
-                instance ?: BookRepository(bookService, appExecutors).also { instance = it }
-            }
-        }
-    }
 }

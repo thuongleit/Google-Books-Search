@@ -75,7 +75,7 @@ class GoogleBookLegacyServiceTest {
                 server.enqueue(it)
             }
         try {
-            service.searchBooks("books")
+            service.searchBooks("books", 10)
             fail("Action should fail")
         } catch (e: Exception) {
             assertTrue(e is IOException)
@@ -97,11 +97,6 @@ class GoogleBookLegacyServiceTest {
             assertTrue(e is IOException)
             assertThat(e.message, `is`("404:Client Error"))
         }
-    }
-
-    @Test
-    fun `type of service`() {
-        assertThat(service.getType(), `is`(BookService.NetworkExecutorType.LEGACY))
     }
 
     private fun assertResponse(body: GoogleVolumeResponse?) {

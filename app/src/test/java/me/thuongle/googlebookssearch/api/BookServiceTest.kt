@@ -4,6 +4,7 @@ import me.thuongle.googlebookssearch.util.mock
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Assert.assertTrue
+import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
@@ -19,20 +20,21 @@ class BookServiceTest {
     private var mockRetrofitService = mock<GoogleBooksRetrofitService>()
     private var mockLegacyService = mock<GoogleBooksLegacyService>()
 
+    @Before
+    fun setUp(){
+        service = BookServiceImpl(mockLegacyService, mockRetrofitService)
+    }
+
     @Test
     fun `search books by query with legacy service`() {
-        service = object : BookServiceImpl(BookService.NetworkExecutorType.LEGACY) {
-            override fun getService() = mockLegacyService
-        }
+        service.swapService(BookService.NetworkExecutorType.LEGACY)
         service.searchBooks("hello", 20, 30)
         verify(mockLegacyService).searchBooks("hello", 20, 30)
     }
 
     @Test
     fun `search books by query with retrofit service`() {
-        service = object : BookServiceImpl(BookService.NetworkExecutorType.RETROFIT) {
-            override fun getService() = mockRetrofitService
-        }
+        service.swapService(BookService.NetworkExecutorType.RETROFIT)
         val mockCall = mock<Call<GoogleVolumeResponse>>()
         val response = Response.success(GoogleVolumeResponse.createEmpty())
         `when`(
@@ -49,18 +51,14 @@ class BookServiceTest {
 
     @Test
     fun `search books by url with legacy service`() {
-        service = object : BookServiceImpl(BookService.NetworkExecutorType.LEGACY) {
-            override fun getService() = mockLegacyService
-        }
+        service.swapService(BookService.NetworkExecutorType.LEGACY)
         service.searchBooksWithUrl("/")
         verify(mockLegacyService).searchBooksWithUrl("/")
     }
 
     @Test
     fun `search books by url with retrofit service`() {
-        service = object : BookServiceImpl(BookService.NetworkExecutorType.RETROFIT) {
-            override fun getService() = mockRetrofitService
-        }
+        service.swapService(BookService.NetworkExecutorType.RETROFIT)
         val mockCall = mock<Call<GoogleVolumeResponse>>()
         val response = Response.success(GoogleVolumeResponse.createEmpty())
         `when`(mockRetrofitService.searchBooksWithUrl("/")).thenReturn(mockCall)
@@ -70,26 +68,20 @@ class BookServiceTest {
     }
 
     @Test
-    fun `get service type, return legacy`() {
-        service = BookServiceImpl.create(BookService.NetworkExecutorType.LEGACY)
-        assertThat(service.getType(), `is`(BookService.NetworkExecutorType.LEGACY))
-    }
-
-    @Test
-    fun `get service type, return retrofit`() {
-        service = BookServiceImpl.create(BookService.NetworkExecutorType.RETROFIT)
+    fun `get service type`() {
+        service.swapService(BookService.NetworkExecutorType.RETROFIT)
         assertThat(service.getType(), `is`(BookService.NetworkExecutorType.RETROFIT))
     }
 
     @Test
     fun `get service instance, return legacy`() {
-        service = BookServiceImpl.create(BookService.NetworkExecutorType.LEGACY)
+        service.swapService(BookService.NetworkExecutorType.LEGACY)
         assertTrue((service as BookServiceImpl).getService() is GoogleBooksLegacyService)
     }
 
     @Test
     fun `get service instance, return retrofit`() {
-        service = BookServiceImpl.create(BookService.NetworkExecutorType.RETROFIT)
+        service.swapService(BookService.NetworkExecutorType.RETROFIT)
         assertTrue((service as BookServiceImpl).getService() is GoogleBooksRetrofitService)
     }
 }

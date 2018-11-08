@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.annotation.VisibleForTesting
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import android.text.Editable
 import android.text.TextWatcher
@@ -14,13 +15,13 @@ import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.activity_search.*
-import me.thuongle.googlebookssearch.BuildConfig
 import me.thuongle.googlebookssearch.R
+import me.thuongle.googlebookssearch.ViewModelFactory
 import me.thuongle.googlebookssearch.api.BookService
-import me.thuongle.googlebookssearch.api.BookServiceImpl
 import me.thuongle.googlebookssearch.databinding.ActivitySearchBinding
-import me.thuongle.googlebookssearch.repository.BookRepository
 import me.thuongle.googlebookssearch.testing.OpenForTesting
 import me.thuongle.googlebookssearch.ui.common.BookListAdapter
 import me.thuongle.googlebookssearch.ui.common.Callback
@@ -28,20 +29,28 @@ import me.thuongle.googlebookssearch.util.AppExecutors
 import me.thuongle.googlebookssearch.util.dismissKeyboard
 import me.thuongle.googlebookssearch.util.isConnected
 import java.io.IOException
+import javax.inject.Inject
 
 @OpenForTesting
-class SearchActivity : AppCompatActivity() {
+class SearchActivity : AppCompatActivity(), HasSupportFragmentInjector {
+
+    lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>
+
+    @Inject
+    lateinit var viewModeFactory: ViewModelFactory
+
+    lateinit var searchViewModel: SearchViewModel
 
     private lateinit var binding: ActivitySearchBinding
-    private lateinit var searchViewModel: SearchViewModel
     private var adapter: BookListAdapter? = null
+
+    override fun supportFragmentInjector() = dispatchingAndroidInjector
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_search)
 
-        val bookService = BookServiceImpl.create(BuildConfig.NETWORK_EXECUTOR_TYPE)
-        searchViewModel = getViewModel(bookService)
+        searchViewModel = ViewModelProviders.of(this, viewModeFactory).get(SearchViewModel::class.java)
 
         initViews()
         initViewModel()
@@ -74,12 +83,6 @@ class SearchActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
-    }
-
-    private fun getViewModel(bookService: BookServiceImpl): SearchViewModel {
-        val viewModelFactory = ViewModelFactory(BookRepository.getInstance(bookService, AppExecutors.create()))
-        return ViewModelProviders.of(this, viewModelFactory)
-            .get(SearchViewModel::class.java)
     }
 
     @VisibleForTesting
