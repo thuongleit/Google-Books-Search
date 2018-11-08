@@ -1,1 +1,2 @@
 [![CircleCI](https://circleci.com/gh/thuongleit/Google-Books-Search/tree/master.svg?style=shield)](https://circleci.com/gh/thuongleit/Google-Books-Search/tree/master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/3873bdcd246a48d7ab774cae45629537)](https://www.codacy.com/app/thuongleit/Google-Books-Search?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=thuongleit/Google-Books-Search&amp;utm_campaign=Badge_Grade)
