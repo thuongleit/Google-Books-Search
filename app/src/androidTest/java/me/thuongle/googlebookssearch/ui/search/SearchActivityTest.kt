@@ -9,8 +9,7 @@ import android.support.test.espresso.NoActivityResumedException
 import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
-import android.support.test.filters.LargeTest
-import android.support.test.rule.ActivityTestRule
+import android.support.test.filters.MediumTest
 import android.support.test.runner.AndroidJUnit4
 import android.support.test.uiautomator.UiDevice
 import android.view.KeyEvent
@@ -27,21 +26,27 @@ import me.thuongle.googlebookssearch.repository.BookRepository
 import me.thuongle.googlebookssearch.util.*
 import org.hamcrest.CoreMatchers.allOf
 import org.hamcrest.CoreMatchers.not
+import org.junit.After
 import org.junit.Assert.fail
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.Mockito.`when`
-import org.mockito.Mockito.verify
+import org.mockito.Mockito.*
 
-@LargeTest
+@MediumTest
 @RunWith(AndroidJUnit4::class)
 class SearchActivityTest {
 
     @Rule
     @JvmField
-    var activityTestRule = ActivityTestRule(SearchActivity::class.java)
+    var activityTestRule = DisableAnimationActivityTestRule(SearchActivity::class.java)
+    @Rule
+    @JvmField
+    val executorRule = TaskExecutorWithIdlingResourceRule()
+    @Rule
+    @JvmField
+    val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(activityTestRule)
     private lateinit var viewModel: SearchViewModel
     private val searchResults = MutableLiveResult<List<GoogleBook>>()
 
@@ -54,6 +59,11 @@ class SearchActivityTest {
         `when`(viewModel.searchResult).thenReturn(searchResults)
 
         activityTestRule.activity.setViewModel(viewModel)
+    }
+
+    @After
+    fun tearDown(){
+        reset(viewModel)
     }
 
     @Test
@@ -139,6 +149,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(Result.loading(null))
         verify(viewModel).searchBooks("foo")
         onView(withId(R.id.tv_network_hint)).check(
@@ -163,6 +174,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(Result.error("404:Error", null))
         verify(viewModel).searchBooks("foo")
         onView(withId(R.id.btn_retry)).check(matches(isDisplayed()))
@@ -182,6 +194,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(Result.success(null))
         verify(viewModel).searchBooks("foo")
         onView(withId(R.id.tv_loading_hint)).check(
@@ -200,6 +213,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(
             Result.success(
                 Gson().fromJson(
@@ -228,6 +242,7 @@ class SearchActivityTest {
             typeText("foo"),
             pressImeActionButton()
         )
+        Espresso.closeSoftKeyboard()
         searchResults.postValue(Result.error("404:Error", null))
         verify(viewModel).searchBooks("foo")
         onView(withId(R.id.btn_retry)).check(matches(isDisplayed()))
