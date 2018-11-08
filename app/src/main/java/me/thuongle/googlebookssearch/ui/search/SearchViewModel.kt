@@ -3,6 +3,8 @@ package me.thuongle.googlebookssearch.ui.search
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Patterns
+import me.thuongle.googlebookssearch.api.BookService
+import me.thuongle.googlebookssearch.api.BookServiceImpl
 import me.thuongle.googlebookssearch.api.GoogleBook
 import me.thuongle.googlebookssearch.model.AbsentLiveData
 import me.thuongle.googlebookssearch.model.LiveResult
@@ -39,5 +41,17 @@ class SearchViewModel(val repository: BookRepository) : ViewModel() {
         query.value?.let {
             query.value = it
         }
+    }
+
+    fun getServiceType() = repository.getService().getType()
+
+    /**
+     * Swap current service to new service
+     * @return new service type
+     */
+    fun swapService(): BookService.NetworkExecutorType {
+        val newType = BookService.NetworkExecutorType.swap(getServiceType())
+        repository.swapService(BookServiceImpl.create(newType))
+        return repository.getService().getType()
     }
 }

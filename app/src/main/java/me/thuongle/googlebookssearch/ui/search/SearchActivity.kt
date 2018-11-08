@@ -54,9 +54,9 @@ class SearchActivity : AppCompatActivity() {
 
     override fun onPrepareOptionsMenu(menu: Menu?): Boolean {
         menu?.findItem(R.id.swap_service)?.let { swapMenu ->
-            val currentNetworkType = searchViewModel.repository.getService().getType()
-            swapMenu.title =
-                    getString(R.string.swap_service_hint, BookService.NetworkExecutorType.swap(currentNetworkType))
+            val currentNetworkType = searchViewModel.getServiceType()
+            val otherNetworkType = BookService.NetworkExecutorType.swap(currentNetworkType)
+            swapMenu.title = getString(R.string.swap_service_hint, otherNetworkType)
         }
         return true
     }
@@ -68,10 +68,8 @@ class SearchActivity : AppCompatActivity() {
                 true
             }
             R.id.swap_service -> {
-                val newType =
-                    BookService.NetworkExecutorType.swap(searchViewModel.repository.getService().getType())
-                searchViewModel.repository.swapService(BookServiceImpl.create(newType))
-                Toast.makeText(this, getString(R.string.swap_service_hint, newType), Toast.LENGTH_SHORT).show()
+                val newServiceType = searchViewModel.swapService()
+                Toast.makeText(this, getString(R.string.swap_service_hint, newServiceType), Toast.LENGTH_SHORT).show()
                 true
             }
             else -> super.onOptionsItemSelected(item)

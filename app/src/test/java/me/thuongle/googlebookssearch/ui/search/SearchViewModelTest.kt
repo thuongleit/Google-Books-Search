@@ -1,8 +1,12 @@
 package me.thuongle.googlebookssearch.ui.search
 
 import android.arch.core.executor.testing.InstantTaskExecutorRule
+import com.nhaarman.mockitokotlin2.any
+import me.thuongle.googlebookssearch.api.BookService
+import me.thuongle.googlebookssearch.api.BookServiceImpl
 import me.thuongle.googlebookssearch.repository.BookRepository
 import me.thuongle.googlebookssearch.util.mock
+import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.Rule
@@ -87,4 +91,16 @@ class SearchViewModelTest {
         verify(repository).search("foo")
     }
 
+    @Test
+    fun `get service type`() {
+        `when`(repository.getService()).thenReturn(BookServiceImpl.create(BookService.NetworkExecutorType.LEGACY))
+        assertThat(viewModel.getServiceType(), `is`(BookService.NetworkExecutorType.LEGACY))
+    }
+
+    @Test
+    fun `swap service`() {
+        `when`(repository.getService()).thenReturn(BookServiceImpl.create(BookService.NetworkExecutorType.LEGACY))
+        viewModel.swapService()
+        verify(repository).swapService(any())
+    }
 }

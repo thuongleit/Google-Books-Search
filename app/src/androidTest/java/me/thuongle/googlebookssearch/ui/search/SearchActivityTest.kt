@@ -5,6 +5,7 @@ import android.support.test.InstrumentationRegistry
 import android.support.test.InstrumentationRegistry.getInstrumentation
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.Espresso.onView
+import android.support.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import android.support.test.espresso.NoActivityResumedException
 import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.assertion.ViewAssertions.matches
@@ -49,14 +50,16 @@ class SearchActivityTest {
     val dataBindingIdlingResourceRule = DataBindingIdlingResourceRule(activityTestRule)
     private lateinit var viewModel: SearchViewModel
     private val searchResults = MutableLiveResult<List<GoogleBook>>()
+    private val networkExecutorType = BookService.NetworkExecutorType.LEGACY
 
     @Before
     fun init() {
         viewModel = mock()
         val mockRepo = mock<BookRepository>()
-        `when`(mockRepo.getService()).thenReturn(BookServiceImpl.create(BookService.NetworkExecutorType.LEGACY))
+        `when`(mockRepo.getService()).thenReturn(BookServiceImpl.create(networkExecutorType))
         `when`(viewModel.repository).thenReturn(mockRepo)
         `when`(viewModel.searchResult).thenReturn(searchResults)
+        `when`(viewModel.getServiceType()).thenReturn(networkExecutorType)
 
         activityTestRule.activity.setViewModel(viewModel)
     }
@@ -248,6 +251,24 @@ class SearchActivityTest {
         onView(withId(R.id.btn_retry)).check(matches(isDisplayed()))
         onView(withId(R.id.btn_retry)).perform(click())
         verify(viewModel).searchBooks("foo")
+    }
+
+    @Test
+    fun swapService() {
+        openActionBarOverflowOrOptionsMenu(getInstrumentation().targetContext)
+
+        onView(
+            allOf(
+                withId(R.id.title),
+                withText(
+                    getString(
+                        R.string.swap_service_hint,
+                        BookService.NetworkExecutorType.swap(networkExecutorType)
+                    )
+                )
+            )
+        ).perform(click())
+        verify(viewModel).swapService()
     }
 
     private fun testDefaultViewState() {
