@@ -4,7 +4,6 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import android.util.Patterns
 import me.thuongle.googlebookssearch.api.BookService
-import me.thuongle.googlebookssearch.api.BookServiceImpl
 import me.thuongle.googlebookssearch.api.GoogleBook
 import me.thuongle.googlebookssearch.model.AbsentLiveData
 import me.thuongle.googlebookssearch.model.LiveResult
@@ -12,9 +11,10 @@ import me.thuongle.googlebookssearch.repository.BookRepository
 import me.thuongle.googlebookssearch.testing.OpenForTesting
 import me.thuongle.googlebookssearch.util.switchMap
 import java.util.*
+import javax.inject.Inject
 
 @OpenForTesting
-class SearchViewModel(val repository: BookRepository) : ViewModel() {
+class SearchViewModel @Inject constructor(val repository: BookRepository) : ViewModel() {
     private val query = MutableLiveData<String>()
 
     val searchResult: LiveResult<List<GoogleBook>> = query.switchMap { queryText ->
@@ -50,8 +50,8 @@ class SearchViewModel(val repository: BookRepository) : ViewModel() {
      * @return new service type
      */
     fun swapService(): BookService.NetworkExecutorType {
-        val newType = BookService.NetworkExecutorType.swap(getServiceType())
-        repository.swapService(BookServiceImpl.create(newType))
+        val currentType = getServiceType()
+        repository.swapService(BookService.NetworkExecutorType.swap(currentType))
         return repository.getService().getType()
     }
 }

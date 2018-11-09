@@ -9,11 +9,11 @@ import me.thuongle.googlebookssearch.util.toUrlEncodeUTF8
  * REST API access points for Google Books API using HttpURLConnection
  */
 @OpenForTesting
-class GoogleBooksLegacyService(val client: RestClient) : BookService {
+class GoogleBooksLegacyService(val client: RestClient) {
 
     @WorkerThread
     @Throws(Exception::class)
-    override fun searchBooks(query: String, startIndex: Int, maxResults: Int): GoogleVolumeResponse {
+    fun searchBooks(query: String, startIndex: Int = 0, maxResults: Int = 40): GoogleVolumeResponse {
         val parameters = mapOf(
             "q" to query,
             "startIndex" to startIndex,
@@ -27,19 +27,11 @@ class GoogleBooksLegacyService(val client: RestClient) : BookService {
             })
     }
 
-    override fun searchBooksWithUrl(url: String): GoogleVolumeResponse {
+    fun searchBooksWithUrl(url: String): GoogleVolumeResponse {
         return client.execute(
             requestUrl = url,
             processResponse = {
                 Gson().fromJson(it, GoogleVolumeResponse::class.java)
             })
-    }
-
-    override fun getType(): BookService.NetworkExecutorType = BookService.NetworkExecutorType.LEGACY
-
-    companion object {
-        fun create(client: RestClient): GoogleBooksLegacyService {
-            return GoogleBooksLegacyService(client)
-        }
     }
 }

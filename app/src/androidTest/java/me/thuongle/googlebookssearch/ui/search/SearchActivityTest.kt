@@ -18,7 +18,6 @@ import android.view.inputmethod.EditorInfo
 import com.google.gson.Gson
 import me.thuongle.googlebookssearch.R
 import me.thuongle.googlebookssearch.api.BookService
-import me.thuongle.googlebookssearch.api.BookServiceImpl
 import me.thuongle.googlebookssearch.api.GoogleBook
 import me.thuongle.googlebookssearch.api.GoogleVolumeResponse
 import me.thuongle.googlebookssearch.model.MutableLiveResult
@@ -56,7 +55,9 @@ class SearchActivityTest {
     fun init() {
         viewModel = mock()
         val mockRepo = mock<BookRepository>()
-        `when`(mockRepo.getService()).thenReturn(BookServiceImpl.create(networkExecutorType))
+        val mockService = mock<BookService>()
+        `when`(mockService.getType()).thenReturn(networkExecutorType)
+        `when`(mockRepo.getService()).thenReturn(mockService)
         `when`(viewModel.repository).thenReturn(mockRepo)
         `when`(viewModel.searchResult).thenReturn(searchResults)
         `when`(viewModel.getServiceType()).thenReturn(networkExecutorType)

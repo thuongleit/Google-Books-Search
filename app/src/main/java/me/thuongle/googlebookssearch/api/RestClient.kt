@@ -79,9 +79,5 @@ open class RestClient {
         internal const val DELETE = "DELETE"
         internal const val PATCH = "PATCH"
         internal const val OPTIONS = "OPTIONS"
-
-        fun create(): RestClient {
-            return RestClient()
-        }
     }
 }
